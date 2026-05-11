@@ -336,7 +336,7 @@ textarea { resize: vertical; min-height: 72px; }
   <div class="page active" id="page-0">
     <div class="portada-hero">
       <h2>Retrospectiva PI 1 · 2026</h2>
-      <p>Servicios DBA & Gestión de Datos — Sesión híbrida de 5 horas</p>
+      <p>Servicios DBA & Gestión de Datos — Sesión híbrida · 08:30 a 13:30</p>
       <div class="reto-chips">
         <div class="reto-chip">☁️ J2C</div>
         <div class="reto-chip">🏗️ Bodega de Datos</div>
@@ -374,20 +374,18 @@ textarea { resize: vertical; min-height: 72px; }
       <table class="items-table">
         <thead><tr><th>Hora</th><th>Etapa</th><th>Tiempo</th></tr></thead>
         <tbody>
-          <tr><td>08:30</td><td>Portada + Apertura</td><td>15 min</td></tr>
-          <tr><td>08:45</td><td>Check-in emocional</td><td>20 min</td></tr>
-          <tr><td>09:05</td><td>Logros + reconocimientos</td><td>45 min</td></tr>
-          <tr><td>09:50</td><td>☕ Pausa</td><td>10 min</td></tr>
-          <tr><td>10:00</td><td>¿Qué hicimos bien / mal?</td><td>60 min</td></tr>
-          <tr><td>11:00</td><td>Items PI 1 + causa raíz</td><td>45 min</td></tr>
-          <tr><td>11:45</td><td>Ishikawa</td><td>45 min</td></tr>
-          <tr><td>12:30</td><td>🍽️ Almuerzo</td><td>60 min</td></tr>
-          <tr><td>13:30</td><td>Sinergia inter-equipos</td><td>45 min</td></tr>
-          <tr><td>14:15</td><td>Compromisos PI 2</td><td>60 min</td></tr>
-          <tr><td>15:15</td><td>☕ Pausa</td><td>15 min</td></tr>
-          <tr><td>15:30</td><td>Retos PI 2</td><td>45 min</td></tr>
-          <tr><td>16:15</td><td>Encuesta de salida</td><td>15 min</td></tr>
-          <tr><td>16:30</td><td>Dashboard + Cierre</td><td>30 min</td></tr>
+          <tr><td>08:30</td><td>Portada + Apertura</td><td>10 min</td></tr>
+          <tr><td>08:40</td><td>Check-in emocional</td><td>15 min</td></tr>
+          <tr><td>08:55</td><td>Logros + reconocimientos</td><td>30 min</td></tr>
+          <tr><td>09:25</td><td>¿Qué hicimos bien / mal?</td><td>45 min</td></tr>
+          <tr><td>10:10</td><td>Items PI 1 + causa raíz</td><td>30 min</td></tr>
+          <tr><td>10:40</td><td>Ishikawa</td><td>30 min</td></tr>
+          <tr><td>11:10</td><td>☕ Pausa</td><td>10 min</td></tr>
+          <tr><td>11:20</td><td>Sinergia inter-equipos</td><td>30 min</td></tr>
+          <tr><td>11:50</td><td>Compromisos PI 2</td><td>45 min</td></tr>
+          <tr><td>12:35</td><td>Retos PI 2</td><td>30 min</td></tr>
+          <tr><td>13:05</td><td>Encuesta de salida</td><td>10 min</td></tr>
+          <tr><td>13:15</td><td>Dashboard + Cierre</td><td>15 min</td></tr>
         </tbody>
       </table>
     </div>
@@ -402,8 +400,8 @@ textarea { resize: vertical; min-height: 72px; }
       <p>¿Cómo llegamos a esta retrospectiva? Cada persona registra su estado. Sin debate, solo escucha.</p>
       <div class="timer-bar">
         ⏱️ Tiempo sugerido:
-        <span class="timer-display" id="timer-1">20:00</span>
-        <button class="timer-btn" onclick="startTimer(1,1200)">Iniciar</button>
+        <span class="timer-display" id="timer-1">15:00</span>
+        <button class="timer-btn" onclick="startTimer(1,900)">Iniciar</button>
         <button class="timer-btn" onclick="stopTimer()">Pausar</button>
       </div>
     </div>
@@ -477,8 +475,8 @@ textarea { resize: vertical; min-height: 72px; }
       <p>Reconocemos lo entregado antes de hablar de lo que falló. Primero logros propios, luego reconocimientos cruzados.</p>
       <div class="timer-bar">
         ⏱️ Tiempo sugerido:
-        <span class="timer-display" id="timer-2">45:00</span>
-        <button class="timer-btn" onclick="startTimer(2,2700)">Iniciar</button>
+        <span class="timer-display" id="timer-2">30:00</span>
+        <button class="timer-btn" onclick="startTimer(2,1800)">Iniciar</button>
         <button class="timer-btn" onclick="stopTimer()">Pausar</button>
       </div>
     </div>
@@ -554,8 +552,8 @@ textarea { resize: vertical; min-height: 72px; }
       <p>Tarjetas individuales primero en silencio, luego socialización y votación de prioridades.</p>
       <div class="timer-bar">
         ⏱️ Tiempo sugerido:
-        <span class="timer-display" id="timer-3">60:00</span>
-        <button class="timer-btn" onclick="startTimer(3,3600)">Iniciar</button>
+        <span class="timer-display" id="timer-3">45:00</span>
+        <button class="timer-btn" onclick="startTimer(3,2700)">Iniciar</button>
         <button class="timer-btn" onclick="stopTimer()">Pausar</button>
       </div>
     </div>
@@ -631,8 +629,8 @@ textarea { resize: vertical; min-height: 72px; }
       <p>Revisión item por item: qué entregamos, qué no, y por qué. Insumo preparado antes de la sesión.</p>
       <div class="timer-bar">
         ⏱️ Tiempo sugerido:
-        <span class="timer-display" id="timer-4">45:00</span>
-        <button class="timer-btn" onclick="startTimer(4,2700)">Iniciar</button>
+        <span class="timer-display" id="timer-4">30:00</span>
+        <button class="timer-btn" onclick="startTimer(4,1800)">Iniciar</button>
         <button class="timer-btn" onclick="stopTimer()">Pausar</button>
       </div>
     </div>
@@ -715,8 +713,8 @@ textarea { resize: vertical; min-height: 72px; }
       <p>5 ramas estructuradas: Personas · Procesos · Herramientas · Comunicación · Liderazgo</p>
       <div class="timer-bar">
         ⏱️ Tiempo sugerido:
-        <span class="timer-display" id="timer-5">45:00</span>
-        <button class="timer-btn" onclick="startTimer(5,2700)">Iniciar</button>
+        <span class="timer-display" id="timer-5">30:00</span>
+        <button class="timer-btn" onclick="startTimer(5,1800)">Iniciar</button>
         <button class="timer-btn" onclick="stopTimer()">Pausar</button>
       </div>
     </div>
@@ -799,8 +797,8 @@ textarea { resize: vertical; min-height: 72px; }
       <p>Evaluación par a par del 1 al 10. Si hay diferencia mayor a 3 puntos entre dos equipos — hay tensión que hablar.</p>
       <div class="timer-bar">
         ⏱️ Tiempo sugerido:
-        <span class="timer-display" id="timer-6">45:00</span>
-        <button class="timer-btn" onclick="startTimer(6,2700)">Iniciar</button>
+        <span class="timer-display" id="timer-6">30:00</span>
+        <button class="timer-btn" onclick="startTimer(6,1800)">Iniciar</button>
         <button class="timer-btn" onclick="stopTimer()">Pausar</button>
       </div>
     </div>
@@ -870,8 +868,8 @@ textarea { resize: vertical; min-height: 72px; }
       <p>Solo se registra si tiene dueño voluntario y métrica. Máximo 8 compromisos. Sin dueño = no existe.</p>
       <div class="timer-bar">
         ⏱️ Tiempo sugerido:
-        <span class="timer-display" id="timer-7">60:00</span>
-        <button class="timer-btn" onclick="startTimer(7,3600)">Iniciar</button>
+        <span class="timer-display" id="timer-7">45:00</span>
+        <button class="timer-btn" onclick="startTimer(7,2700)">Iniciar</button>
         <button class="timer-btn" onclick="stopTimer()">Pausar</button>
       </div>
     </div>
@@ -929,27 +927,64 @@ textarea { resize: vertical; min-height: 72px; }
   <div class="page" id="page-8">
     <div class="page-header">
       <h2>🚀 Plan de abordaje — Retos PI 2</h2>
-      <p>Mapeo de capacidades requeridas vs estado actual. Donde hay brecha alta, hay riesgo para el PI.</p>
+      <p>Define los retos del PI 2 y mapea las capacidades requeridas vs estado actual del equipo.</p>
       <div class="timer-bar">
         ⏱️ Tiempo sugerido:
-        <span class="timer-display" id="timer-8">45:00</span>
-        <button class="timer-btn" onclick="startTimer(8,2700)">Iniciar</button>
+        <span class="timer-display" id="timer-8">30:00</span>
+        <button class="timer-btn" onclick="startTimer(8,1800)">Iniciar</button>
         <button class="timer-btn" onclick="stopTimer()">Pausar</button>
       </div>
     </div>
 
     <div class="facilitation">
       <strong>🎙️ Instrucción</strong>
-      Revisa cada capacidad. El equipo asigna un estado actual (1-5). La brecha (5 - estado actual) se calcula sola.
-      Al final identifica las capacidades con brecha ≥ 3 — esas son las más críticas para el PI.
+      Primero agrega los retos del PI 2 (ej: J2C, Bodega de Datos, Adopción IA). Luego agrega las capacidades necesarias para cada reto y el equipo asigna el estado actual (1-5). La brecha se calcula sola.
       Pregunta de cierre: <em>"¿Qué tendríamos que ver al final del PI 2 para saber que vamos bien en este reto?"</em>
     </div>
 
-    <div id="retos-grid"></div>
-
+    <!-- Agregar Reto -->
     <div class="card">
-      <h3>Capacidades críticas (brecha ≥ 3)</h3>
-      <div id="retos-criticos"><div class="empty-board">Evalúa las capacidades para ver las críticas</div></div>
+      <h3>➕ Agregar reto del PI 2</h3>
+      <div class="form-row cols3">
+        <div class="form-group">
+          <label>Nombre del reto</label>
+          <input type="text" id="reto-nombre" placeholder="Ej: J2C, Bodega de Datos, Adopción IA...">
+        </div>
+        <div class="form-group">
+          <label>Emoji / ícono</label>
+          <select id="reto-emoji">
+            <option value="☁️">☁️ Cloud</option>
+            <option value="🏗️">🏗️ Construcción</option>
+            <option value="🤖">🤖 IA</option>
+            <option value="📊">📊 Datos</option>
+            <option value="🔧">🔧 Técnico</option>
+            <option value="🚀">🚀 Lanzamiento</option>
+            <option value="🎯">🎯 Objetivo</option>
+            <option value="💡">💡 Innovación</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Color</label>
+          <select id="reto-color">
+            <option value="var(--light)">Azul</option>
+            <option value="var(--light-green)">Verde</option>
+            <option value="var(--light-amber)">Ámbar</option>
+            <option value="var(--light-purple)">Morado</option>
+            <option value="var(--light-red)">Rojo</option>
+          </select>
+        </div>
+      </div>
+      <button class="btn btn-primary" onclick="agregarReto()">Agregar reto</button>
+      <div class="status-msg" id="st-reto"></div>
+    </div>
+
+    <!-- Lista de retos con capacidades -->
+    <div id="retos-dinamicos"><div class="empty-board" style="padding:20px;text-align:center">Agrega el primer reto del PI 2 para comenzar</div></div>
+
+    <!-- Capacidades críticas -->
+    <div class="card">
+      <h3>⚠️ Capacidades críticas (brecha ≥ 3)</h3>
+      <div id="retos-criticos"><div class="empty-board">Agrega capacidades para ver las críticas</div></div>
     </div>
   </div>
 
@@ -962,8 +997,8 @@ textarea { resize: vertical; min-height: 72px; }
       <p>Anónima · 5 preguntas · 2 minutos. Sirve para medir esta sesión y mejorar la próxima retro.</p>
       <div class="timer-bar">
         ⏱️ Tiempo sugerido:
-        <span class="timer-display" id="timer-9">15:00</span>
-        <button class="timer-btn" onclick="startTimer(9,900)">Iniciar</button>
+        <span class="timer-display" id="timer-9">10:00</span>
+        <button class="timer-btn" onclick="startTimer(9,600)">Iniciar</button>
         <button class="timer-btn" onclick="stopTimer()">Pausar</button>
       </div>
     </div>
@@ -1079,14 +1114,44 @@ textarea { resize: vertical; min-height: 72px; }
 
     <!-- Export -->
     <div class="card">
-      <h3>💾 Exportar y compartir</h3>
-      <div style="display:flex;gap:10px;flex-wrap:wrap">
-        <button class="btn btn-primary" onclick="exportarJSON()">📥 Descargar respaldo JSON</button>
+      <h3>💾 Guardar, restaurar y consolidar</h3>
+
+      <!-- PARTICIPANTES: guardar propio JSON -->
+      <div style="background:var(--light-green);border-radius:8px;padding:14px;margin-bottom:14px">
+        <div style="font-size:13px;font-weight:600;color:var(--success);margin-bottom:6px">👤 Para cada participante</div>
+        <p style="font-size:12px;color:var(--gray);margin-bottom:10px">
+          Al terminar cada etapa, cada persona descarga su JSON y lo envía al facilitador por Teams o correo.
+        </p>
+        <button class="btn btn-success" onclick="exportarJSON()">📥 Guardar mi sesión (JSON)</button>
+      </div>
+
+      <!-- FACILITADOR: consolidar varios JSONs -->
+      <div style="background:var(--light);border-radius:8px;padding:14px;margin-bottom:14px">
+        <div style="font-size:13px;font-weight:600;color:var(--primary);margin-bottom:6px">🎙️ Para el facilitador — consolidar todos los JSONs</div>
+        <p style="font-size:12px;color:var(--gray);margin-bottom:10px">
+          Selecciona todos los JSONs que te enviaron los participantes al mismo tiempo. La app los fusiona automáticamente sin duplicar datos.
+        </p>
+        <button class="btn btn-primary" onclick="document.getElementById('input-consolidar').click()">
+          📂 Consolidar JSONs de todos (selecciona varios)
+        </button>
+        <input type="file" id="input-consolidar" accept=".json" multiple style="display:none" onchange="consolidarJSONs(event)">
+        <div id="consolidar-status" class="status-msg" style="margin-top:10px"></div>
+      </div>
+
+      <!-- RESTAURAR -->
+      <div style="background:var(--light-gray);border-radius:8px;padding:14px;margin-bottom:14px">
+        <div style="font-size:13px;font-weight:600;color:var(--gray);margin-bottom:6px">🔄 Restaurar sesión</div>
+        <p style="font-size:12px;color:var(--gray);margin-bottom:10px">
+          Si cerraste el navegador o recargaste, carga el último JSON consolidado para retomar donde quedaron.
+        </p>
+        <button class="btn btn-outline" onclick="document.getElementById('input-cargar').click()">📂 Cargar sesión guardada</button>
+        <input type="file" id="input-cargar" accept=".json" style="display:none" onchange="cargarJSON(event)">
+      </div>
+
+      <div style="display:flex;gap:10px">
         <button class="btn btn-outline" onclick="imprimirDashboard()">🖨️ Imprimir / PDF</button>
       </div>
-      <p style="font-size:11px;color:var(--gray);margin-top:10px">
-        Los datos están guardados en SharePoint en tiempo real. El JSON es un respaldo adicional.
-      </p>
+      <div id="save-status" class="status-msg" style="margin-top:10px"></div>
     </div>
   </div>
 
@@ -1095,7 +1160,16 @@ textarea { resize: vertical; min-height: 72px; }
 <!-- NAV FOOTER -->
 <div class="nav-footer">
   <button class="btn btn-outline" id="btn-prev" onclick="navPage(-1)" disabled>← Anterior</button>
-  <span class="nav-step-info" id="nav-step-info">Etapa 1 de 11</span>
+  <div style="display:flex;align-items:center;gap:10px">
+    <span class="nav-step-info" id="nav-step-info">Etapa 1 de 11</span>
+    <button class="btn btn-sm" style="background:var(--success);color:white;font-size:11px;padding:5px 12px" onclick="exportarJSON()" title="Guardar sesión como JSON">
+      💾 Guardar
+    </button>
+    <button class="btn btn-sm btn-outline" style="font-size:11px;padding:5px 12px" onclick="document.getElementById('input-cargar-footer').click()" title="Cargar sesión desde JSON">
+      📂 Cargar
+    </button>
+    <input type="file" id="input-cargar-footer" accept=".json" style="display:none" onchange="cargarJSON(event)">
+  </div>
   <button class="btn btn-primary" id="btn-next" onclick="navPage(1)">Siguiente →</button>
 </div>
 
@@ -1118,7 +1192,8 @@ const LISTAS = {
 const STATE = {
   checkins: [], tarjetas: [], logros: [], items: [],
   ishikawa: [], sinergia: [], compromisos: [], encuesta: [],
-  retos: initRetos(), misVotos: [], moodSel: null, timerInterval: null
+  retosPI2: [], capsPI2: [],
+  misVotos: [], moodSel: null, timerInterval: null
 };
 let currentPage = 0;
 let isAuth = false;
@@ -1127,41 +1202,25 @@ let spDigest = null;
 // ==================== STEPS ====================
 const STEPS = [
   { label: "Portada", icon: "🏠", time: 0 },
-  { label: "Check-in", icon: "📋", time: 20 },
-  { label: "Logros", icon: "🏆", time: 45 },
-  { label: "Bien / Mal", icon: "🎯", time: 60 },
-  { label: "Items PI 1", icon: "📦", time: 45 },
-  { label: "Ishikawa", icon: "🦴", time: 45 },
-  { label: "Sinergia", icon: "🤝", time: 45 },
-  { label: "Compromisos", icon: "✅", time: 60 },
-  { label: "Retos PI 2", icon: "🚀", time: 45 },
-  { label: "Encuesta", icon: "📝", time: 15 },
-  { label: "Dashboard", icon: "📊", time: 30 }
+  { label: "Check-in", icon: "📋", time: 15 },
+  { label: "Logros", icon: "🏆", time: 30 },
+  { label: "Bien / Mal", icon: "🎯", time: 45 },
+  { label: "Items PI 1", icon: "📦", time: 30 },
+  { label: "Ishikawa", icon: "🦴", time: 30 },
+  { label: "Sinergia", icon: "🤝", time: 30 },
+  { label: "Compromisos", icon: "✅", time: 45 },
+  { label: "Retos PI 2", icon: "🚀", time: 30 },
+  { label: "Encuesta", icon: "📝", time: 10 },
+  { label: "Dashboard", icon: "📊", time: 15 }
 ];
 
 // ==================== RETOS ====================
-function initRetos() {
-  return [
-    { reto:"J2C", cap:"Cloud-native DB (RDS/Aurora)", eq:"DBA", estado:0 },
-    { reto:"J2C", cap:"Infrastructure as Code (Terraform)", eq:"DBA", estado:0 },
-    { reto:"J2C", cap:"Migración con downtime mínimo", eq:"DBA + Gestión", estado:0 },
-    { reto:"J2C", cap:"FinOps / estrategia de costos cloud", eq:"DBA + Gobierno", estado:0 },
-    { reto:"Bodega", cap:"Modelado dimensional (star/snowflake)", eq:"Gestión", estado:0 },
-    { reto:"Bodega", cap:"Pipelines ELT productivos", eq:"Gestión", estado:0 },
-    { reto:"Bodega", cap:"Calidad de datos automatizada", eq:"Gestión + Gobierno", estado:0 },
-    { reto:"Bodega", cap:"Catálogo unificado y lineage", eq:"Gobierno", estado:0 },
-    { reto:"IA", cap:"MLOps end-to-end", eq:"IA", estado:0 },
-    { reto:"IA", cap:"Feature store productivo", eq:"IA + Gestión", estado:0 },
-    { reto:"IA", cap:"Gobierno de modelos (responsable, sesgo)", eq:"Gobierno + IA", estado:0 },
-    { reto:"IA", cap:"Ambientes reproducibles para data science", eq:"DBA + IA", estado:0 },
-  ];
-}
-
 // ==================== INIT ====================
 window.addEventListener('load', async () => {
   buildStepper();
   buildPortadaIndex();
   buildRetosGrid();
+  actualizarSelectRetos();
   updateNav();
   await verificarAuth();
   setInterval(sincronizarUI, 6000);
@@ -1663,65 +1722,183 @@ function renderCompromisos() {
     </div>`).join('');
 }
 
-// ==================== RETOS PI2 ====================
+// ==================== RETOS PI2 DINÁMICOS ====================
+// STATE.retosPI2 = array de retos: { id, nombre, emoji, color }
+// STATE.capsPI2  = array de capacidades: { id, retoId, cap, eq, estado }
+if (!STATE.retosPI2) STATE.retosPI2 = [];
+if (!STATE.capsPI2)  STATE.capsPI2  = [];
+
 function buildRetosGrid() {
-  const retos = ['J2C','Bodega','IA'];
-  const colors = { 'J2C': 'var(--light)', 'Bodega': 'var(--light-green)', 'IA': 'var(--light-amber)' };
-  const emojis = { 'J2C': '☁️', 'Bodega': '🏗️', 'IA': '🤖' };
-  const el = document.getElementById('retos-grid');
-  el.innerHTML = retos.map(reto => {
-    const caps = STATE.retos.filter(r => r.reto===reto);
-    return `<div class="card">
-      <h3 style="background:${colors[reto]};padding:10px;border-radius:6px;margin:-20px -20px 16px -20px;font-size:16px">
-        ${emojis[reto]} Reto: ${reto==='Bodega'?'Bodega de Datos':reto==='IA'?'Adopción de IA':reto}
-      </h3>
-      <table class="items-table">
-        <thead><tr><th>Capacidad</th><th>Equipo</th><th>Estado actual (1-5)</th><th>Brecha</th></tr></thead>
-        <tbody>${caps.map((c,i) => {
-          const globalIdx = STATE.retos.indexOf(c);
-          return `<tr>
-            <td>${c.cap}</td>
-            <td><span class="badge badge-info">${c.eq}</span></td>
-            <td>
-              <input type="range" min="1" max="5" value="${c.estado||3}"
-                oninput="actualizarReto(${globalIdx},this.value)"
-                style="width:80px"> <span id="reto-val-${globalIdx}">${c.estado||3}</span>
-            </td>
-            <td>
-              <span id="reto-brecha-${globalIdx}" class="badge badge-err">
-                ${5-(c.estado||3)}
-              </span>
-            </td>
-          </tr>`;
-        }).join('')}</tbody>
-      </table>
+  // No hace nada — ahora todo es dinámico
+}
+
+function agregarReto() {
+  const nombre = document.getElementById('reto-nombre').value.trim();
+  const emoji  = document.getElementById('reto-emoji').value;
+  const color  = document.getElementById('reto-color').value;
+  if (!nombre) { showStatus('st-reto','Escribe el nombre del reto','err'); return; }
+  if (STATE.retosPI2.find(r => r.nombre.toLowerCase() === nombre.toLowerCase())) {
+    showStatus('st-reto','Ya existe un reto con ese nombre','warn'); return;
+  }
+  const reto = { id: Date.now(), nombre, emoji, color };
+  STATE.retosPI2.push(reto);
+  document.getElementById('reto-nombre').value = '';
+  showStatus('st-reto','✓ Reto agregado','ok');
+  renderRetosPI2();
+  actualizarSelectRetos();
+}
+
+function eliminarReto(id) {
+  if (!confirm('¿Eliminar este reto y todas sus capacidades?')) return;
+  STATE.retosPI2 = STATE.retosPI2.filter(r => r.id !== id);
+  STATE.capsPI2  = STATE.capsPI2.filter(c => c.retoId !== id);
+  renderRetosPI2();
+  actualizarSelectRetos();
+}
+
+function agregarCapacidad(retoId) {
+  const capEl = document.getElementById(`cap-input-${retoId}`);
+  const eqEl  = document.getElementById(`eq-input-${retoId}`);
+  const cap = capEl.value.trim();
+  const eq  = eqEl.value.trim();
+  if (!cap) { alert('Escribe el nombre de la capacidad'); return; }
+  const nueva = { id: Date.now(), retoId, cap, eq: eq||'Por definir', estado: 3 };
+  STATE.capsPI2.push(nueva);
+  capEl.value = '';
+  eqEl.value  = '';
+  renderRetosPI2();
+  renderRetosCriticos();
+}
+
+function eliminarCapacidad(id) {
+  STATE.capsPI2 = STATE.capsPI2.filter(c => c.id !== id);
+  renderRetosPI2();
+  renderRetosCriticos();
+}
+
+function actualizarCapacidad(id, val) {
+  const cap = STATE.capsPI2.find(c => c.id === id);
+  if (!cap) return;
+  cap.estado = parseInt(val);
+  const brecha = 5 - cap.estado;
+  const valEl    = document.getElementById(`cap-val-${id}`);
+  const brechaEl = document.getElementById(`cap-brecha-${id}`);
+  if (valEl)    valEl.textContent = val;
+  if (brechaEl) {
+    brechaEl.textContent = brecha;
+    brechaEl.className = `badge ${brecha >= 3 ? 'badge-err' : brecha >= 2 ? 'badge-warn' : 'badge-ok'}`;
+  }
+  renderRetosCriticos();
+}
+
+function renderRetosPI2() {
+  const el = document.getElementById('retos-dinamicos');
+  if (!STATE.retosPI2.length) {
+    el.innerHTML = '<div class="empty-board" style="padding:20px;text-align:center">Agrega el primer reto del PI 2 para comenzar</div>';
+    return;
+  }
+  el.innerHTML = STATE.retosPI2.map(reto => {
+    const caps = STATE.capsPI2.filter(c => c.retoId === reto.id);
+    return `
+    <div class="card" style="margin-bottom:16px">
+      <div style="display:flex;align-items:center;justify-content:space-between;
+                  background:${reto.color};padding:10px 14px;border-radius:6px;
+                  margin:-20px -20px 16px -20px">
+        <h3 style="font-size:16px;color:var(--primary)">${reto.emoji} Reto: ${reto.nombre}</h3>
+        <button class="btn btn-sm" style="background:var(--danger);color:white;padding:4px 10px"
+          onclick="eliminarReto(${reto.id})">✕ Eliminar reto</button>
+      </div>
+
+      <!-- Agregar capacidad -->
+      <div style="display:grid;grid-template-columns:1fr 1fr auto;gap:8px;margin-bottom:14px;align-items:end">
+        <div class="form-group" style="margin:0">
+          <label>Capacidad requerida</label>
+          <input type="text" id="cap-input-${reto.id}" placeholder="Ej: Cloud-native DB">
+        </div>
+        <div class="form-group" style="margin:0">
+          <label>Equipo responsable</label>
+          <input type="text" id="eq-input-${reto.id}" placeholder="Ej: DBA, IA, Gestión...">
+        </div>
+        <button class="btn btn-primary btn-sm" onclick="agregarCapacidad(${reto.id})">+ Agregar</button>
+      </div>
+
+      <!-- Tabla de capacidades -->
+      ${!caps.length
+        ? `<div class="empty-board">Sin capacidades aún — agrega la primera</div>`
+        : `<table class="items-table">
+          <thead>
+            <tr>
+              <th>Capacidad</th>
+              <th>Equipo</th>
+              <th>Estado actual (1-5)</th>
+              <th>Brecha</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            ${caps.map(c => {
+              const brecha = 5 - (c.estado||3);
+              return `<tr>
+                <td>${c.cap}</td>
+                <td><span class="badge badge-info">${c.eq}</span></td>
+                <td style="white-space:nowrap">
+                  <input type="range" min="1" max="5" value="${c.estado||3}"
+                    oninput="actualizarCapacidad(${c.id},this.value)"
+                    style="width:80px;vertical-align:middle">
+                  <span id="cap-val-${c.id}" style="font-weight:700;color:var(--accent)">${c.estado||3}</span>
+                </td>
+                <td>
+                  <span id="cap-brecha-${c.id}" class="badge ${brecha>=3?'badge-err':brecha>=2?'badge-warn':'badge-ok'}">
+                    ${brecha}
+                  </span>
+                </td>
+                <td>
+                  <span class="commit-del" onclick="eliminarCapacidad(${c.id})">✕</span>
+                </td>
+              </tr>`;
+            }).join('')}
+          </tbody>
+        </table>`
+      }
     </div>`;
   }).join('');
 }
 
-function actualizarReto(idx, val) {
-  STATE.retos[idx].estado = parseInt(val);
-  document.getElementById(`reto-val-${idx}`).textContent = val;
-  const brecha = 5 - parseInt(val);
-  const el = document.getElementById(`reto-brecha-${idx}`);
-  el.textContent = brecha;
-  el.className = `badge ${brecha >= 3 ? 'badge-err' : brecha >= 2 ? 'badge-warn' : 'badge-ok'}`;
-  renderRetosCriticos();
-}
-
 function renderRetosCriticos() {
-  const criticos = STATE.retos.filter(r => (5-(r.estado||3)) >= 3);
+  const criticos = STATE.capsPI2.filter(c => (5-(c.estado||3)) >= 3);
   const el = document.getElementById('retos-criticos');
-  if (!criticos.length) { el.innerHTML='<div class="empty-board">✓ Sin capacidades críticas (brecha &lt; 3)</div>'; return; }
-  el.innerHTML = criticos.map(c => `
+  if (!criticos.length) {
+    el.innerHTML = '<div class="empty-board">✓ Sin capacidades críticas (brecha &lt; 3)</div>';
+    return;
+  }
+  el.innerHTML = criticos.map(c => {
+    const reto = STATE.retosPI2.find(r => r.id === c.retoId);
+    return `
     <div class="commit-item">
       <div class="commit-icon">⚠️</div>
       <div class="commit-body">
         <div class="commit-title">${c.cap}</div>
-        <div class="commit-meta">Reto: ${c.reto} · Equipo: ${c.eq} · Brecha: ${5-(c.estado||3)} puntos</div>
+        <div class="commit-meta">
+          Reto: ${reto ? reto.emoji+' '+reto.nombre : 'Desconocido'} ·
+          Equipo: ${c.eq} ·
+          Brecha: ${5-(c.estado||3)} puntos
+        </div>
       </div>
       <span class="badge badge-err">Crítico</span>
-    </div>`).join('');
+    </div>`;
+  }).join('');
+}
+
+function actualizarSelectRetos() {
+  // Actualiza el select de "Habilita reto" en compromisos con los retos dinámicos
+  const sel = document.getElementById('co-reto');
+  if (!sel) return;
+  const extra = STATE.retosPI2.map(r => `<option value="${r.nombre}">${r.emoji} ${r.nombre}</option>`).join('');
+  sel.innerHTML = `
+    <option value="Múltiples">🔗 Múltiples</option>
+    <option value="Sinergia">🤝 Sinergia</option>
+    ${extra}
+  `;
 }
 
 // ==================== ENCUESTA ====================
@@ -1852,25 +2029,253 @@ async function sincronizarUI() {
   if (currentPage === 9) renderEncuesta();
 }
 
-// ==================== EXPORT ====================
+
+// ==================== EXPORT / IMPORT ====================
 function exportarJSON() {
   const data = {
+    version: "1.0",
     exportado: new Date().toISOString(),
-    sitio: SP_SITE,
-    checkins: STATE.checkins,
-    logros: STATE.logros,
-    tarjetas: STATE.tarjetas,
-    items: STATE.items,
-    ishikawa: STATE.ishikawa,
-    sinergia: STATE.sinergia,
+    etapaActual: currentPage,
+    checkins:    STATE.checkins,
+    logros:      STATE.logros,
+    tarjetas:    STATE.tarjetas,
+    items:       STATE.items,
+    ishikawa:    STATE.ishikawa,
+    sinergia:    STATE.sinergia,
     compromisos: STATE.compromisos,
-    encuesta: STATE.encuesta,
+    encuesta:    STATE.encuesta,
+    retosPI2:    STATE.retosPI2,
+    capsPI2:     STATE.capsPI2,
   };
-  const blob = new Blob([JSON.stringify(data,null,2)], { type:'application/json' });
+
+  // Guardar en localStorage como backup automático
+  try { localStorage.setItem('retro_backup', JSON.stringify(data)); } catch {}
+
+  // Descargar archivo
+  const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
-  a.href = url; a.download = `retro-pi1-${new Date().toISOString().split('T')[0]}.json`; a.click();
+  a.href = url;
+  a.download = `retro-pi1-${new Date().toISOString().replace(/[:.]/g,'-').slice(0,16)}.json`;
+  a.click();
+  URL.revokeObjectURL(url);
+
+  // Mostrar confirmación
+  const st = document.getElementById('save-status');
+  if (st) {
+    st.textContent = `✓ Sesión guardada — ${new Date().toLocaleTimeString()}`;
+    st.className = 'status-msg show ok';
+    setTimeout(() => st.className = 'status-msg', 3000);
+  }
 }
+
+function cargarJSON(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    try {
+      const data = JSON.parse(e.target.result);
+
+      // Validar que es un archivo de retro
+      if (!data.exportado) {
+        alert('❌ El archivo no es una sesión de retrospectiva válida.'); return;
+      }
+
+      // Restaurar STATE
+      if (data.checkins)    STATE.checkins    = data.checkins;
+      if (data.logros)      STATE.logros      = data.logros;
+      if (data.tarjetas)    STATE.tarjetas    = data.tarjetas;
+      if (data.items)       STATE.items       = data.items;
+      if (data.ishikawa)    STATE.ishikawa    = data.ishikawa;
+      if (data.sinergia)    STATE.sinergia    = data.sinergia;
+      if (data.compromisos) STATE.compromisos = data.compromisos;
+      if (data.encuesta)    STATE.encuesta    = data.encuesta;
+      if (data.retosPI2)    STATE.retosPI2    = data.retosPI2;
+      if (data.capsPI2)     STATE.capsPI2     = data.capsPI2;
+
+      // Re-renderizar todo
+      renderCheckin();
+      renderLogros();
+      renderTarjetas();
+      renderItems();
+      renderIshikawa();
+      renderSinergia();
+      renderCompromisos();
+      renderEncuesta();
+      renderRetosPI2();
+      renderRetosCriticos();
+      actualizarSelectRetos();
+
+      // Ir a la etapa donde estaba
+      if (data.etapaActual !== undefined) goToPage(data.etapaActual);
+
+      // Confirmar
+      const exportado = new Date(data.exportado).toLocaleString();
+      const st = document.getElementById('save-status');
+      if (st) {
+        st.textContent = `✓ Sesión restaurada — guardada el ${exportado}`;
+        st.className = 'status-msg show ok';
+        setTimeout(() => st.className = 'status-msg', 5000);
+      }
+      alert(`✅ Sesión cargada correctamente.\n\nGuardada el: ${exportado}\nParticipantes: ${STATE.checkins.length}\nTarjetas: ${STATE.tarjetas.length}\nCompromisos: ${STATE.compromisos.length}`);
+
+    } catch (err) {
+      alert('❌ Error al leer el archivo. Asegúrate de que es un JSON de retrospectiva válido.\n\n' + err.message);
+    }
+    // Limpiar input para que se pueda cargar el mismo archivo de nuevo
+    event.target.value = '';
+  };
+  reader.readAsText(file);
+}
+
+// ==================== CONSOLIDAR MÚLTIPLES JSONs ====================
+function consolidarJSONs(event) {
+  const files = Array.from(event.target.files);
+  if (!files.length) return;
+
+  const st = document.getElementById('consolidar-status');
+  st.textContent = `⏳ Leyendo ${files.length} archivo(s)...`;
+  st.className = 'status-msg show loading';
+
+  const readers = files.map(file => new Promise((resolve, reject) => {
+    const r = new FileReader();
+    r.onload = e => {
+      try { resolve(JSON.parse(e.target.result)); }
+      catch { reject(`Error leyendo ${file.name}`); }
+    };
+    r.onerror = () => reject(`No se pudo leer ${file.name}`);
+    r.readAsText(file);
+  }));
+
+  Promise.all(readers).then(datasets => {
+    function fusionar(campo, keyFn) {
+      const todos = datasets.flatMap(d => d[campo] || []);
+      const vistos = new Set();
+      return todos.filter(item => {
+        const key = keyFn(item);
+        if (vistos.has(key)) return false;
+        vistos.add(key);
+        return true;
+      });
+    }
+
+    const fusionado = {
+      checkins: fusionar('checkins', c => `${(c.Nombre||c.Title||'').toLowerCase()}_${c.Equipo||''}`),
+      logros: fusionar('logros', l => (l.Texto||l.texto||'').toLowerCase().slice(0,50)),
+      tarjetas: (() => {
+        const map = new Map();
+        datasets.flatMap(d => d.tarjetas || []).forEach(t => {
+          const key = `${t.Categoria}_${(t.Texto||'').toLowerCase().slice(0,60)}`;
+          if (map.has(key)) {
+            map.get(key).Votos = Math.max(map.get(key).Votos||0, t.Votos||0);
+          } else {
+            map.set(key, { ...t, id: t.id || Date.now() + Math.random() });
+          }
+        });
+        return Array.from(map.values());
+      })(),
+      items: fusionar('items', i => `${(i.nombre||'').toLowerCase()}_${i.equipo||''}`),
+      ishikawa: fusionar('ishikawa', i => `${i.rama}_${(i.causa||'').toLowerCase().slice(0,50)}`),
+      sinergia: (() => {
+        const map = new Map();
+        datasets.flatMap(d => d.sinergia || []).forEach(s => {
+          const key = `${s.Par}_${s.MiEquipo}`;
+          if (map.has(key)) {
+            map.get(key).Puntaje = Math.round((map.get(key).Puntaje + s.Puntaje) / 2);
+          } else {
+            map.set(key, { ...s, id: s.id || Date.now() + Math.random() });
+          }
+        });
+        return Array.from(map.values());
+      })(),
+      compromisos: fusionar('compromisos', c => (c.Que||c.que||'').toLowerCase().slice(0,60)),
+      encuesta: datasets.flatMap(d => d.encuesta || []),
+      retosPI2: fusionar('retosPI2', r => (r.nombre||'').toLowerCase()),
+      capsPI2: fusionar('capsPI2', c => `${c.retoId}_${(c.cap||'').toLowerCase().slice(0,40)}`),
+    };
+
+    Object.assign(STATE, fusionado);
+
+    renderCheckin(); renderLogros(); renderTarjetas();
+    renderItems(); renderIshikawa(); renderSinergia();
+    renderCompromisos(); renderEncuesta();
+    renderRetosPI2(); renderRetosCriticos(); actualizarSelectRetos();
+    if (currentPage === 10) updateDashboard();
+
+    st.textContent = [
+      `✅ ${files.length} archivo(s) fusionados —`,
+      `👤 ${STATE.checkins.length} participantes`,
+      `🎯 ${STATE.tarjetas.length} tarjetas`,
+      `✅ ${STATE.compromisos.length} compromisos`,
+    ].join(' · ');
+    st.className = 'status-msg show ok';
+
+    // Descargar automáticamente el consolidado
+    setTimeout(exportarJSON, 500);
+
+  }).catch(err => {
+    st.textContent = `❌ Error: ${err}`;
+    st.className = 'status-msg show err';
+  });
+
+  event.target.value = '';
+}
+
+// Autosave en localStorage cada 2 minutos
+setInterval(() => {
+  try {
+    const data = {
+      version: "1.0",
+      exportado: new Date().toISOString(),
+      etapaActual: currentPage,
+      checkins: STATE.checkins, logros: STATE.logros,
+      tarjetas: STATE.tarjetas, items: STATE.items,
+      ishikawa: STATE.ishikawa, sinergia: STATE.sinergia,
+      compromisos: STATE.compromisos, encuesta: STATE.encuesta,
+      retosPI2: STATE.retosPI2, capsPI2: STATE.capsPI2,
+    };
+    localStorage.setItem('retro_autosave', JSON.stringify(data));
+  } catch {}
+}, 120000);
+
+// Al cargar, verificar si hay autosave reciente
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    try {
+      const saved = localStorage.getItem('retro_autosave');
+      if (!saved) return;
+      const data = JSON.parse(saved);
+      const mins = Math.round((Date.now() - new Date(data.exportado)) / 60000);
+      if (mins < 120 && ( // Solo si es de menos de 2 horas
+        data.checkins?.length || data.tarjetas?.length || data.compromisos?.length
+      )) {
+        const restaurar = confirm(
+          `🔄 Se encontró una sesión guardada hace ${mins} minuto(s).\n\n` +
+          `Participantes: ${data.checkins?.length || 0}\n` +
+          `Tarjetas: ${data.tarjetas?.length || 0}\n` +
+          `Compromisos: ${data.compromisos?.length || 0}\n\n` +
+          `¿Deseas restaurar la sesión anterior?`
+        );
+        if (restaurar) {
+          Object.assign(STATE, {
+            checkins: data.checkins||[], logros: data.logros||[],
+            tarjetas: data.tarjetas||[], items: data.items||[],
+            ishikawa: data.ishikawa||[], sinergia: data.sinergia||[],
+            compromisos: data.compromisos||[], encuesta: data.encuesta||[],
+            retosPI2: data.retosPI2||[], capsPI2: data.capsPI2||[],
+          });
+          renderCheckin(); renderLogros(); renderTarjetas();
+          renderItems(); renderIshikawa(); renderSinergia();
+          renderCompromisos(); renderEncuesta();
+          renderRetosPI2(); renderRetosCriticos(); actualizarSelectRetos();
+          if (data.etapaActual) goToPage(data.etapaActual);
+        }
+      }
+    } catch {}
+  }, 1500); // Esperar que la app cargue primero
+});
 
 function imprimirDashboard() {
   window.print();
