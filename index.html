@@ -1,0 +1,1880 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Retrospectiva PI 1 — 2026</title>
+<style>
+:root {
+  --primary: #1F4E79;
+  --accent: #2E75B6;
+  --success: #548235;
+  --warn: #BF8F00;
+  --danger: #C00000;
+  --light: #DDEBF7;
+  --light-green: #E2EFDA;
+  --light-amber: #FFF2CC;
+  --light-red: #FCE4D6;
+  --light-purple: #E4DFEC;
+  --gray: #595959;
+  --light-gray: #F2F2F2;
+  --border: #D0D0D0;
+  --font: "Segoe UI", Arial, sans-serif;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: var(--font); background: #EEF3F9; min-height: 100vh; }
+
+/* HEADER */
+.app-header {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+  color: white; padding: 0 24px; height: 60px;
+  display: flex; align-items: center; justify-content: space-between;
+  position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 8px rgba(0,0,0,.2);
+}
+.app-header h1 { font-size: 18px; font-weight: 600; }
+.auth-pill {
+  font-size: 12px; padding: 4px 12px; border-radius: 20px;
+  background: rgba(255,255,255,.15); display: flex; align-items: center; gap: 6px;
+}
+.auth-pill.ok { background: rgba(84,130,53,.7); }
+.auth-pill.err { background: rgba(192,0,0,.7); }
+.dot { width: 8px; height: 8px; border-radius: 50%; background: white; }
+
+/* STEPPER */
+.stepper-wrap {
+  background: white; border-bottom: 1px solid var(--border);
+  padding: 0 24px; overflow-x: auto;
+}
+.stepper {
+  display: flex; gap: 0; min-width: max-content;
+}
+.step {
+  display: flex; align-items: center; padding: 14px 16px;
+  cursor: pointer; position: relative; gap: 8px;
+  border-bottom: 3px solid transparent; transition: all .2s;
+  white-space: nowrap; font-size: 12px; color: var(--gray);
+}
+.step:hover { color: var(--accent); }
+.step.active { color: var(--accent); border-bottom-color: var(--accent); font-weight: 600; }
+.step.done { color: var(--success); }
+.step.done .step-num { background: var(--success); }
+.step-num {
+  width: 22px; height: 22px; border-radius: 50%;
+  background: var(--border); color: white; font-size: 11px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.step.active .step-num { background: var(--accent); }
+
+/* MAIN CONTENT */
+.main { max-width: 900px; margin: 0 auto; padding: 28px 20px; }
+.page { display: none; }
+.page.active { display: block; }
+
+/* PAGE HEADER */
+.page-header { margin-bottom: 24px; }
+.page-header h2 { font-size: 24px; font-weight: 600; color: var(--primary); margin-bottom: 4px; }
+.page-header p { font-size: 13px; color: var(--gray); line-height: 1.5; }
+.timer-bar {
+  display: flex; align-items: center; gap: 10px; margin-top: 12px;
+  padding: 8px 14px; background: var(--light); border-radius: 6px; font-size: 13px;
+}
+.timer-display { font-weight: 700; font-size: 16px; color: var(--primary); min-width: 54px; }
+.timer-btn {
+  padding: 4px 12px; font-size: 12px; border: 1px solid var(--accent);
+  border-radius: 4px; background: white; color: var(--accent); cursor: pointer;
+}
+.timer-btn:hover { background: var(--light); }
+
+/* FACILITATION BOX */
+.facilitation {
+  padding: 12px 16px; margin-bottom: 20px;
+  border-left: 4px solid var(--accent); background: var(--light);
+  border-radius: 0 6px 6px 0; font-size: 13px; color: #1a4a7a; line-height: 1.5;
+}
+.facilitation strong { display: block; margin-bottom: 4px; }
+
+/* CARDS & FORM */
+.card { background: white; border: 1px solid var(--border); border-radius: 8px; padding: 20px; margin-bottom: 16px; }
+.card h3 { font-size: 15px; font-weight: 600; color: var(--primary); margin-bottom: 14px; }
+.form-row { display: grid; gap: 14px; margin-bottom: 14px; }
+.form-row.cols2 { grid-template-columns: 1fr 1fr; }
+.form-row.cols3 { grid-template-columns: 1fr 1fr 1fr; }
+.form-group label { display: block; font-size: 12px; font-weight: 600; color: var(--gray); margin-bottom: 5px; }
+input[type=text], input[type=number], select, textarea {
+  width: 100%; padding: 9px 12px; border: 1px solid var(--border);
+  border-radius: 6px; font-size: 13px; font-family: var(--font);
+  transition: border-color .2s; color: #222;
+}
+input:focus, select:focus, textarea:focus { outline: none; border-color: var(--accent); }
+textarea { resize: vertical; min-height: 72px; }
+
+/* BUTTONS */
+.btn {
+  padding: 9px 20px; border: none; border-radius: 6px; cursor: pointer;
+  font-size: 13px; font-weight: 600; font-family: var(--font); transition: all .2s;
+  display: inline-flex; align-items: center; gap: 6px;
+}
+.btn-primary { background: var(--accent); color: white; }
+.btn-primary:hover { background: var(--primary); }
+.btn-success { background: var(--success); color: white; }
+.btn-success:hover { background: #3e6127; }
+.btn-warn { background: var(--warn); color: white; }
+.btn-danger { background: var(--danger); color: white; }
+.btn-outline { background: white; color: var(--accent); border: 1px solid var(--accent); }
+.btn-outline:hover { background: var(--light); }
+.btn-sm { padding: 5px 12px; font-size: 12px; }
+.btn:disabled { opacity: .5; cursor: not-allowed; }
+
+/* STATUS */
+.status-msg {
+  padding: 10px 14px; border-radius: 6px; font-size: 12px; margin: 10px 0;
+  display: none;
+}
+.status-msg.show { display: block; }
+.status-msg.ok { background: var(--light-green); color: #27500A; }
+.status-msg.err { background: var(--light-red); color: #7D1C1C; }
+.status-msg.warn { background: var(--light-amber); color: #5c3d00; }
+.status-msg.loading { background: var(--light); color: var(--primary); }
+
+/* STICKY NOTES */
+.sticky-board { min-height: 60px; display: flex; flex-wrap: wrap; gap: 8px; padding: 4px 0; }
+.sticky {
+  padding: 8px 12px; border-radius: 6px; font-size: 12px; line-height: 1.4;
+  border-left: 3px solid; display: inline-flex; align-items: flex-start; gap: 6px;
+  max-width: 280px; position: relative;
+}
+.sticky.bien { background: var(--light-green); border-color: var(--success); color: #27500A; }
+.sticky.mal { background: var(--light-red); border-color: var(--danger); color: #7D1C1C; }
+.sticky.sorpresa { background: var(--light-amber); border-color: var(--warn); color: #5c3d00; }
+.sticky.pregunta { background: var(--light); border-color: var(--accent); color: #0c3060; }
+.sticky.gray { background: var(--light-gray); border-color: var(--gray); color: #333; }
+.sticky.green { background: var(--light-green); border-color: var(--success); color: #27500A; }
+.sticky.purple { background: var(--light-purple); border-color: #534AB7; color: #3C3489; }
+.sticky-del { cursor: pointer; opacity: .4; font-size: 14px; flex-shrink: 0; line-height: 1; }
+.sticky-del:hover { opacity: 1; }
+.sticky-votes { font-weight: 700; cursor: pointer; padding: 1px 6px; border-radius: 10px; background: rgba(0,0,0,.08); }
+.sticky-votes:hover { background: rgba(0,0,0,.15); }
+.empty-board { font-size: 12px; color: #aaa; font-style: italic; padding: 12px; border: 1px dashed var(--border); border-radius: 6px; text-align: center; }
+
+/* CHECKIN MOODS */
+.mood-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 14px; }
+.mood-card {
+  padding: 14px; border: 2px solid var(--border); border-radius: 8px;
+  text-align: center; cursor: pointer; transition: all .2s;
+}
+.mood-card:hover { border-color: var(--accent); }
+.mood-card.selected { border-color: var(--accent); background: var(--light); }
+.mood-emoji { font-size: 28px; margin-bottom: 6px; }
+.mood-label { font-size: 12px; font-weight: 600; color: var(--gray); }
+
+/* STATS ROW */
+.stats-row { display: grid; gap: 12px; margin-bottom: 16px; }
+.stats-row.cols3 { grid-template-columns: 1fr 1fr 1fr; }
+.stats-row.cols4 { grid-template-columns: 1fr 1fr 1fr 1fr; }
+.stat-box { background: white; border: 1px solid var(--border); border-radius: 8px; padding: 16px; text-align: center; }
+.stat-num { font-size: 28px; font-weight: 700; color: var(--primary); }
+.stat-label { font-size: 11px; color: var(--gray); margin-top: 4px; }
+.stat-box.green .stat-num { color: var(--success); }
+.stat-box.amber .stat-num { color: var(--warn); }
+.stat-box.red .stat-num { color: var(--danger); }
+
+/* BARS */
+.bar-row { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+.bar-label { font-size: 12px; color: var(--gray); min-width: 140px; }
+.bar-track { flex: 1; height: 10px; background: var(--light-gray); border-radius: 5px; overflow: hidden; }
+.bar-fill { height: 100%; border-radius: 5px; transition: width .4s; }
+.bar-val { font-size: 12px; font-weight: 600; min-width: 30px; text-align: right; }
+
+/* SLIDER */
+.slider-row { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+.slider-row label { font-size: 13px; color: #333; min-width: 200px; }
+.slider-row input[type=range] { flex: 1; }
+.slider-val { font-size: 14px; font-weight: 700; min-width: 28px; text-align: center; color: var(--accent); }
+.tension-badge {
+  font-size: 11px; padding: 2px 8px; border-radius: 10px; font-weight: 600;
+}
+.tension-ok { background: var(--light-green); color: var(--success); }
+.tension-warn { background: var(--light-amber); color: var(--warn); }
+.tension-high { background: var(--light-red); color: var(--danger); }
+
+/* ITEMS TABLE */
+.items-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.items-table th {
+  background: var(--primary); color: white; padding: 10px 12px;
+  text-align: left; font-weight: 600; font-size: 12px;
+}
+.items-table td { padding: 10px 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
+.items-table tr:nth-child(even) td { background: var(--light-gray); }
+.items-table tr:hover td { background: var(--light); }
+.badge {
+  display: inline-block; font-size: 11px; padding: 2px 8px;
+  border-radius: 10px; font-weight: 600;
+}
+.badge-ok { background: var(--light-green); color: var(--success); }
+.badge-warn { background: var(--light-amber); color: var(--warn); }
+.badge-err { background: var(--light-red); color: var(--danger); }
+.badge-info { background: var(--light); color: var(--accent); }
+
+/* NAVIGATION FOOTER */
+.nav-footer {
+  background: white; border-top: 1px solid var(--border);
+  padding: 16px 24px; display: flex; justify-content: space-between; align-items: center;
+  position: sticky; bottom: 0; z-index: 99; margin-top: 32px;
+}
+.nav-step-info { font-size: 12px; color: var(--gray); }
+
+/* ISHIKAWA */
+.ishikawa-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.ishikawa-branch {
+  border: 1px solid var(--border); border-radius: 8px; padding: 14px;
+}
+.ishikawa-branch h4 {
+  font-size: 13px; font-weight: 700; margin-bottom: 10px;
+  padding-bottom: 6px; border-bottom: 2px solid;
+}
+.ishikawa-branch.personas h4 { color: var(--danger); border-color: var(--danger); }
+.ishikawa-branch.procesos h4 { color: var(--accent); border-color: var(--accent); }
+.ishikawa-branch.herramientas h4 { color: var(--warn); border-color: var(--warn); }
+.ishikawa-branch.comunicacion h4 { color: var(--success); border-color: var(--success); }
+.ishikawa-branch.liderazgo h4 { color: #534AB7; border-color: #534AB7; }
+
+/* COMPROMISOS LIST */
+.commit-item {
+  display: flex; gap: 12px; padding: 12px 14px;
+  border: 1px solid var(--border); border-radius: 8px; margin-bottom: 8px;
+  background: white; align-items: flex-start;
+}
+.commit-icon { font-size: 18px; flex-shrink: 0; margin-top: 2px; }
+.commit-body { flex: 1; }
+.commit-title { font-size: 13px; font-weight: 600; color: #222; margin-bottom: 4px; }
+.commit-meta { font-size: 11px; color: var(--gray); }
+.commit-del { cursor: pointer; opacity: .3; font-size: 14px; }
+.commit-del:hover { opacity: 1; }
+
+/* HEATMAP */
+.heatmap-cell {
+  padding: 16px; border-radius: 8px; text-align: center; margin-bottom: 8px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.heatmap-label { font-size: 13px; font-weight: 600; }
+.heatmap-score { font-size: 22px; font-weight: 700; }
+
+/* ENCUESTA */
+.star-rating { display: flex; gap: 6px; }
+.star { font-size: 24px; cursor: pointer; transition: transform .1s; }
+.star:hover, .star.active { transform: scale(1.2); }
+
+/* DASHBOARD KPIs */
+.kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 24px; }
+.kpi-box {
+  background: white; border: 1px solid var(--border); border-radius: 10px;
+  padding: 20px; text-align: center; border-top: 4px solid var(--accent);
+}
+.kpi-num { font-size: 32px; font-weight: 700; color: var(--primary); }
+.kpi-label { font-size: 12px; color: var(--gray); margin-top: 4px; }
+
+/* PORTADA */
+.portada-hero {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+  color: white; border-radius: 12px; padding: 40px; text-align: center; margin-bottom: 24px;
+}
+.portada-hero h2 { font-size: 32px; margin-bottom: 8px; }
+.portada-hero p { font-size: 14px; opacity: .9; margin-bottom: 20px; }
+.reto-chips { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+.reto-chip {
+  background: rgba(255,255,255,.2); padding: 6px 16px; border-radius: 20px;
+  font-size: 13px; font-weight: 600;
+}
+.index-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.index-item {
+  background: white; border: 1px solid var(--border); border-radius: 8px;
+  padding: 14px 18px; display: flex; align-items: center; gap: 12px;
+  cursor: pointer; transition: all .2s;
+}
+.index-item:hover { border-color: var(--accent); background: var(--light); }
+.index-num {
+  width: 32px; height: 32px; border-radius: 50%; background: var(--light);
+  color: var(--accent); font-weight: 700; display: flex; align-items: center;
+  justify-content: center; font-size: 14px; flex-shrink: 0;
+}
+.index-info h4 { font-size: 13px; font-weight: 600; color: var(--primary); }
+.index-info p { font-size: 11px; color: var(--gray); margin-top: 2px; }
+
+/* RESPONSIVE */
+@media (max-width: 640px) {
+  .form-row.cols2, .form-row.cols3 { grid-template-columns: 1fr; }
+  .stats-row.cols3, .stats-row.cols4 { grid-template-columns: 1fr 1fr; }
+  .kpi-grid { grid-template-columns: 1fr 1fr; }
+  .index-grid { grid-template-columns: 1fr; }
+  .mood-grid { grid-template-columns: 1fr 1fr; }
+  .ishikawa-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="app-header">
+  <h1>🔄 Retrospectiva PI 1 — 2026</h1>
+  <div class="auth-pill" id="auth-pill">
+    <div class="dot"></div>
+    <span id="auth-label">Conectando...</span>
+  </div>
+</div>
+
+<!-- STEPPER -->
+<div class="stepper-wrap">
+  <div class="stepper" id="stepper"></div>
+</div>
+
+<!-- PAGES -->
+<div class="main">
+
+  <!-- ======================================================
+       PÁGINA 0: PORTADA
+  ====================================================== -->
+  <div class="page active" id="page-0">
+    <div class="portada-hero">
+      <h2>Retrospectiva PI 1 · 2026</h2>
+      <p>Servicios DBA & Gestión de Datos — Sesión híbrida de 5 horas</p>
+      <div class="reto-chips">
+        <div class="reto-chip">☁️ J2C</div>
+        <div class="reto-chip">🏗️ Bodega de Datos</div>
+        <div class="reto-chip">🤖 Adopción de IA</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>📋 Guía de uso</h3>
+      <p style="font-size:13px;color:var(--gray);margin-bottom:14px;line-height:1.6">
+        Esta aplicación guía al equipo paso a paso por las 11 etapas de la retrospectiva.<br>
+        Todos los participantes (presenciales y remotos) abren la misma URL en su navegador.<br>
+        Los datos se guardan automáticamente en SharePoint cada vez que envías algo.
+      </p>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:16px">
+        <div style="background:var(--light-green);padding:12px;border-radius:6px;font-size:12px">
+          <strong>✅ Presenciales</strong><br>Abrir en laptop. Conectados a WiFi corporativo.
+        </div>
+        <div style="background:var(--light-amber);padding:12px;border-radius:6px;font-size:12px">
+          <strong>💻 Remotos</strong><br>Misma URL. Cámara encendida en apertura y cierre.
+        </div>
+        <div style="background:var(--light-purple);padding:12px;border-radius:6px;font-size:12px">
+          <strong>📊 Facilitador</strong><br>Segunda pantalla con dashboard en vivo.
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>🗂️ Índice de la sesión</h3>
+      <div class="index-grid" id="portada-index"></div>
+    </div>
+
+    <div class="card">
+      <h3>⏱️ Agenda resumida</h3>
+      <table class="items-table">
+        <thead><tr><th>Hora</th><th>Etapa</th><th>Tiempo</th></tr></thead>
+        <tbody>
+          <tr><td>08:30</td><td>Portada + Apertura</td><td>15 min</td></tr>
+          <tr><td>08:45</td><td>Check-in emocional</td><td>20 min</td></tr>
+          <tr><td>09:05</td><td>Logros + reconocimientos</td><td>45 min</td></tr>
+          <tr><td>09:50</td><td>☕ Pausa</td><td>10 min</td></tr>
+          <tr><td>10:00</td><td>¿Qué hicimos bien / mal?</td><td>60 min</td></tr>
+          <tr><td>11:00</td><td>Items PI 1 + causa raíz</td><td>45 min</td></tr>
+          <tr><td>11:45</td><td>Ishikawa</td><td>45 min</td></tr>
+          <tr><td>12:30</td><td>🍽️ Almuerzo</td><td>60 min</td></tr>
+          <tr><td>13:30</td><td>Sinergia inter-equipos</td><td>45 min</td></tr>
+          <tr><td>14:15</td><td>Compromisos PI 2</td><td>60 min</td></tr>
+          <tr><td>15:15</td><td>☕ Pausa</td><td>15 min</td></tr>
+          <tr><td>15:30</td><td>Retos PI 2</td><td>45 min</td></tr>
+          <tr><td>16:15</td><td>Encuesta de salida</td><td>15 min</td></tr>
+          <tr><td>16:30</td><td>Dashboard + Cierre</td><td>30 min</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ======================================================
+       PÁGINA 1: CHECK-IN
+  ====================================================== -->
+  <div class="page" id="page-1">
+    <div class="page-header">
+      <h2>📋 Check-in del equipo</h2>
+      <p>¿Cómo llegamos a esta retrospectiva? Cada persona registra su estado. Sin debate, solo escucha.</p>
+      <div class="timer-bar">
+        ⏱️ Tiempo sugerido:
+        <span class="timer-display" id="timer-1">20:00</span>
+        <button class="timer-btn" onclick="startTimer(1,1200)">Iniciar</button>
+        <button class="timer-btn" onclick="stopTimer()">Pausar</button>
+      </div>
+    </div>
+
+    <div class="facilitation">
+      <strong>🎙️ Instrucción para el facilitador</strong>
+      Round-robin alternando presencial → remoto → presencial. Cada persona dice su nombre, equipo y elige su estado.
+      <strong>Regla:</strong> no se explica el porqué todavía. Si más del 40% está cansado o frustrado, nómbralo como dato antes de seguir.
+    </div>
+
+    <div class="card">
+      <h3>Tu check-in</h3>
+      <div class="form-row cols2">
+        <div class="form-group">
+          <label>Nombre</label>
+          <input type="text" id="ci-nombre" placeholder="Ej: Carlos M.">
+        </div>
+        <div class="form-group">
+          <label>Equipo</label>
+          <select id="ci-equipo">
+            <option value="">Selecciona</option>
+            <option>DBA</option>
+            <option>Gestión de datos</option>
+            <option>Gobierno de datos</option>
+            <option>IA</option>
+          </select>
+        </div>
+      </div>
+      <div class="mood-grid">
+        <div class="mood-card" onclick="selMood('Energizado',this)">
+          <div class="mood-emoji">⚡</div>
+          <div class="mood-label">Energizado</div>
+        </div>
+        <div class="mood-card" onclick="selMood('Bien',this)">
+          <div class="mood-emoji">😊</div>
+          <div class="mood-label">Bien</div>
+        </div>
+        <div class="mood-card" onclick="selMood('Cansado',this)">
+          <div class="mood-emoji">😴</div>
+          <div class="mood-label">Cansado</div>
+        </div>
+        <div class="mood-card" onclick="selMood('Frustrado',this)">
+          <div class="mood-emoji">😤</div>
+          <div class="mood-label">Frustrado</div>
+        </div>
+      </div>
+      <button class="btn btn-primary" onclick="enviarCheckin()">Registrar check-in</button>
+      <div class="status-msg" id="st-checkin"></div>
+    </div>
+
+    <div class="card">
+      <h3>Resumen del equipo</h3>
+      <div class="stats-row cols4" id="ci-stats">
+        <div class="stat-box"><div class="stat-num" id="ci-total">0</div><div class="stat-label">Participantes</div></div>
+        <div class="stat-box green"><div class="stat-num" id="ci-pos">0</div><div class="stat-label">Positivos</div></div>
+        <div class="stat-box amber"><div class="stat-num" id="ci-neg">0</div><div class="stat-label">Cansados</div></div>
+        <div class="stat-box red"><div class="stat-num" id="ci-frus">0</div><div class="stat-label">Frustrados</div></div>
+      </div>
+      <div class="sticky-board" id="ci-board">
+        <div class="empty-board">Las respuestas aparecerán aquí en tiempo real</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================================================
+       PÁGINA 2: LOGROS
+  ====================================================== -->
+  <div class="page" id="page-2">
+    <div class="page-header">
+      <h2>🏆 Logros del PI 1</h2>
+      <p>Reconocemos lo entregado antes de hablar de lo que falló. Primero logros propios, luego reconocimientos cruzados.</p>
+      <div class="timer-bar">
+        ⏱️ Tiempo sugerido:
+        <span class="timer-display" id="timer-2">45:00</span>
+        <button class="timer-btn" onclick="startTimer(2,2700)">Iniciar</button>
+        <button class="timer-btn" onclick="stopTimer()">Pausar</button>
+      </div>
+    </div>
+
+    <div class="facilitation">
+      <strong>🎙️ Instrucción</strong>
+      Fase 1 (20 min): Cada equipo lista sus 3 logros más importantes. Vocero los presenta.<br>
+      Fase 2 (25 min): Cada equipo nombra UN logro de OTRO equipo que les impactó positivamente. El reconocimiento cruzado destapa colaboraciones invisibles.
+    </div>
+
+    <div class="card">
+      <h3>Agregar logro</h3>
+      <div class="form-row cols2">
+        <div class="form-group">
+          <label>Equipo</label>
+          <select id="log-equipo">
+            <option value="">Selecciona</option>
+            <option>DBA</option>
+            <option>Gestión de datos</option>
+            <option>Gobierno de datos</option>
+            <option>IA</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Tipo</label>
+          <select id="log-tipo">
+            <option value="propio">Logro propio</option>
+            <option value="cruzado">Reconocimiento cruzado</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Logro</label>
+          <textarea id="log-texto" placeholder="¿Qué logramos / qué destacas de otro equipo?"></textarea>
+        </div>
+      </div>
+      <div class="form-group" id="log-para-wrap">
+        <label>Reconoce a equipo</label>
+        <select id="log-para">
+          <option value="">Selecciona</option>
+          <option>DBA</option>
+          <option>Gestión de datos</option>
+          <option>Gobierno de datos</option>
+          <option>IA</option>
+        </select>
+      </div>
+      <button class="btn btn-success" onclick="enviarLogro()">Agregar logro</button>
+      <div class="status-msg" id="st-logro"></div>
+    </div>
+
+    <div class="card">
+      <h3>Logros propios por equipo</h3>
+      <div id="logros-propios-board">
+        <div class="empty-board">Los logros del equipo aparecerán aquí</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>⭐ Reconocimientos cruzados</h3>
+      <div id="logros-cruzados-board">
+        <div class="empty-board">Los reconocimientos cruzados aparecerán aquí</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================================================
+       PÁGINA 3: BIEN / MAL
+  ====================================================== -->
+  <div class="page" id="page-3">
+    <div class="page-header">
+      <h2>🎯 ¿Qué hicimos bien / qué no?</h2>
+      <p>Tarjetas individuales primero en silencio, luego socialización y votación de prioridades.</p>
+      <div class="timer-bar">
+        ⏱️ Tiempo sugerido:
+        <span class="timer-display" id="timer-3">60:00</span>
+        <button class="timer-btn" onclick="startTimer(3,3600)">Iniciar</button>
+        <button class="timer-btn" onclick="stopTimer()">Pausar</button>
+      </div>
+    </div>
+
+    <div class="facilitation">
+      <strong>🎙️ Instrucción</strong>
+      <strong>10 min silencio:</strong> Todos escriben tarjetas (mínimo 2 por categoría).<br>
+      <strong>20 min:</strong> Cada equipo agrupa y elige 3 representativas por categoría.<br>
+      <strong>30 min votación:</strong> Clic en ⊕ para votar. Tienes 5 votos. Las 5 más votadas pasan a compromisos.
+    </div>
+
+    <div class="card">
+      <h3>Agregar tarjeta</h3>
+      <div class="form-row cols2">
+        <div class="form-group">
+          <label>Categoría</label>
+          <select id="bm-cat">
+            <option value="">Selecciona</option>
+            <option value="bien">✅ Salió bien</option>
+            <option value="mal">❌ Falló / dolió</option>
+            <option value="sorpresa">💡 Sorpresa / inesperado</option>
+            <option value="pregunta">❓ Pregunta sin respuesta</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Aplica a equipo</label>
+          <select id="bm-equipo">
+            <option value="Todos">Todos</option>
+            <option>DBA</option>
+            <option>Gestión de datos</option>
+            <option>Gobierno de datos</option>
+            <option>IA</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Observación (sé específico, nombra ejemplos reales)</label>
+        <textarea id="bm-texto" placeholder="Ej: La migración se atrasó porque DBA no recibió los requerimientos con anticipación..."></textarea>
+      </div>
+      <button class="btn btn-primary" onclick="enviarTarjeta()">Agregar tarjeta</button>
+      <div class="status-msg" id="st-tarjeta"></div>
+    </div>
+
+    <div class="card">
+      <h3>✅ Salió bien</h3>
+      <div class="sticky-board" id="board-bien"><div class="empty-board">Sin tarjetas aún</div></div>
+    </div>
+    <div class="card">
+      <h3>❌ Falló / dolió</h3>
+      <div class="sticky-board" id="board-mal"><div class="empty-board">Sin tarjetas aún</div></div>
+    </div>
+    <div class="card">
+      <h3>💡 Sorpresa / inesperado</h3>
+      <div class="sticky-board" id="board-sorpresa"><div class="empty-board">Sin tarjetas aún</div></div>
+    </div>
+    <div class="card">
+      <h3>❓ Preguntas sin respuesta</h3>
+      <div class="sticky-board" id="board-pregunta"><div class="empty-board">Sin tarjetas aún</div></div>
+    </div>
+
+    <div class="card">
+      <h3>🏆 Top 5 más votadas</h3>
+      <div id="top5-board"><div class="empty-board">Vota las tarjetas para ver el top 5</div></div>
+    </div>
+  </div>
+
+  <!-- ======================================================
+       PÁGINA 4: ITEMS PI1
+  ====================================================== -->
+  <div class="page" id="page-4">
+    <div class="page-header">
+      <h2>📦 Items comprometidos en el PI 1</h2>
+      <p>Revisión item por item: qué entregamos, qué no, y por qué. Insumo preparado antes de la sesión.</p>
+      <div class="timer-bar">
+        ⏱️ Tiempo sugerido:
+        <span class="timer-display" id="timer-4">45:00</span>
+        <button class="timer-btn" onclick="startTimer(4,2700)">Iniciar</button>
+        <button class="timer-btn" onclick="stopTimer()">Pausar</button>
+      </div>
+    </div>
+
+    <div class="facilitation">
+      <strong>🎙️ Instrucción</strong>
+      El facilitador proyecta la lista. Por cada item NO cumplido o parcial, aplica la técnica <strong>5 ¿Por qué?</strong> en máximo 4 minutos.
+      <strong>Regla clave:</strong> las causas se redactan en términos de proceso, herramienta o decisión — NO se nombran personas.
+    </div>
+
+    <div class="card">
+      <h3>Registrar item del PI 1</h3>
+      <div class="form-row cols2">
+        <div class="form-group">
+          <label>Item / Iniciativa</label>
+          <input type="text" id="it-nombre" placeholder="Nombre del item">
+        </div>
+        <div class="form-group">
+          <label>Equipo dueño</label>
+          <select id="it-equipo">
+            <option value="">Selecciona</option>
+            <option>DBA</option>
+            <option>Gestión de datos</option>
+            <option>Gobierno de datos</option>
+            <option>IA</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row cols2">
+        <div class="form-group">
+          <label>Estado</label>
+          <select id="it-estado">
+            <option value="">Selecciona</option>
+            <option value="cumplido">✅ Cumplido</option>
+            <option value="parcial">⚠️ Parcial</option>
+            <option value="no-cumplido">❌ No cumplido</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>% Avance</label>
+          <input type="number" id="it-avance" min="0" max="100" placeholder="0-100">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Causa raíz (5 ¿Por qué? — solo para parcial / no cumplido)</label>
+        <textarea id="it-causa" placeholder="La causa raíz es... (en términos de proceso, herramienta o decisión, no de personas)"></textarea>
+      </div>
+      <div class="form-group">
+        <label>Impacto en PI 2</label>
+        <input type="text" id="it-impacto" placeholder="¿Cómo afecta esto al PI 2?">
+      </div>
+      <button class="btn btn-primary" onclick="enviarItem()">Registrar item</button>
+      <div class="status-msg" id="st-item"></div>
+    </div>
+
+    <div class="card">
+      <h3>Resumen de cumplimiento</h3>
+      <div class="stats-row cols3">
+        <div class="stat-box green"><div class="stat-num" id="it-cumplidos">0</div><div class="stat-label">Cumplidos</div></div>
+        <div class="stat-box amber"><div class="stat-num" id="it-parciales">0</div><div class="stat-label">Parciales</div></div>
+        <div class="stat-box red"><div class="stat-num" id="it-nocumplidos">0</div><div class="stat-label">No cumplidos</div></div>
+      </div>
+      <div style="margin-top:12px">
+        <div class="bar-row">
+          <span class="bar-label">Cumplimiento PI 1</span>
+          <div class="bar-track"><div class="bar-fill" id="it-bar" style="width:0%;background:var(--success)"></div></div>
+          <span class="bar-val" id="it-pct">0%</span>
+        </div>
+      </div>
+      <div id="items-list" style="margin-top:16px"></div>
+    </div>
+  </div>
+
+  <!-- ======================================================
+       PÁGINA 5: CAUSA RAÍZ ISHIKAWA
+  ====================================================== -->
+  <div class="page" id="page-5">
+    <div class="page-header">
+      <h2>🦴 Análisis de causa raíz — Ishikawa</h2>
+      <p>5 ramas estructuradas: Personas · Procesos · Herramientas · Comunicación · Liderazgo</p>
+      <div class="timer-bar">
+        ⏱️ Tiempo sugerido:
+        <span class="timer-display" id="timer-5">45:00</span>
+        <button class="timer-btn" onclick="startTimer(5,2700)">Iniciar</button>
+        <button class="timer-btn" onclick="stopTimer()">Pausar</button>
+      </div>
+    </div>
+
+    <div class="facilitation">
+      <strong>🎙️ Instrucción</strong>
+      Cada equipo aporta tarjetas en cada rama. Al final identifican las <strong>3 ramas más cargadas</strong>.
+      Si una causa cabe en dos ramas, ponla en ambas. Las ramas más cargadas son las áreas prioritarias de mejora.
+    </div>
+
+    <div class="card">
+      <div class="form-row cols2">
+        <div class="form-group">
+          <label>Rama</label>
+          <select id="ish-rama">
+            <option value="">Selecciona rama</option>
+            <option value="personas">👥 Personas</option>
+            <option value="procesos">⚙️ Procesos</option>
+            <option value="herramientas">🔧 Herramientas</option>
+            <option value="comunicacion">💬 Comunicación</option>
+            <option value="liderazgo">🎯 Liderazgo</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Severidad (1-5)</label>
+          <select id="ish-severidad">
+            <option value="1">1 — Leve</option>
+            <option value="2">2 — Menor</option>
+            <option value="3" selected>3 — Moderada</option>
+            <option value="4">4 — Alta</option>
+            <option value="5">5 — Crítica</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Causa identificada</label>
+        <textarea id="ish-causa" placeholder="Describe la causa concreta..."></textarea>
+      </div>
+      <button class="btn btn-primary" onclick="enviarIshikawa()">Agregar causa</button>
+      <div class="status-msg" id="st-ish"></div>
+    </div>
+
+    <div class="ishikawa-grid">
+      <div class="ishikawa-branch personas">
+        <h4>👥 Personas</h4>
+        <div id="ish-personas"><div class="empty-board">Sin causas aún</div></div>
+      </div>
+      <div class="ishikawa-branch procesos">
+        <h4>⚙️ Procesos</h4>
+        <div id="ish-procesos"><div class="empty-board">Sin causas aún</div></div>
+      </div>
+      <div class="ishikawa-branch herramientas">
+        <h4>🔧 Herramientas</h4>
+        <div id="ish-herramientas"><div class="empty-board">Sin causas aún</div></div>
+      </div>
+      <div class="ishikawa-branch comunicacion">
+        <h4>💬 Comunicación</h4>
+        <div id="ish-comunicacion"><div class="empty-board">Sin causas aún</div></div>
+      </div>
+    </div>
+    <div class="card" style="margin-top:12px">
+      <div class="ishikawa-branch liderazgo" style="border:none;padding:0">
+        <h4 style="font-size:13px;font-weight:700;color:#534AB7;border-bottom:2px solid #534AB7;padding-bottom:6px;margin-bottom:10px">🎯 Liderazgo</h4>
+        <div id="ish-liderazgo"><div class="empty-board">Sin causas aún</div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>📊 Ramas más cargadas</h3>
+      <div id="ish-ranking"><div class="empty-board">Agrega causas para ver el ranking</div></div>
+    </div>
+  </div>
+
+  <!-- ======================================================
+       PÁGINA 6: SINERGIA
+  ====================================================== -->
+  <div class="page" id="page-6">
+    <div class="page-header">
+      <h2>🤝 Sinergia inter-equipos</h2>
+      <p>Evaluación par a par del 1 al 10. Si hay diferencia mayor a 3 puntos entre dos equipos — hay tensión que hablar.</p>
+      <div class="timer-bar">
+        ⏱️ Tiempo sugerido:
+        <span class="timer-display" id="timer-6">45:00</span>
+        <button class="timer-btn" onclick="startTimer(6,2700)">Iniciar</button>
+        <button class="timer-btn" onclick="stopTimer()">Pausar</button>
+      </div>
+    </div>
+
+    <div class="facilitation">
+      <strong>🎙️ Instrucción</strong>
+      Lee cada par en voz alta. Pide a un representante de cada equipo que dé su número <strong>al mismo tiempo</strong> (sin consultarse).
+      Si hay diferencia mayor a 3 puntos: <em>"¿Qué está pasando que lo vemos tan diferente?"</em> — esa es la pregunta más valiosa de la sesión.
+    </div>
+
+    <div class="card">
+      <h3>Evaluar par de equipos</h3>
+      <div class="form-row cols2">
+        <div class="form-group">
+          <label>Tu equipo</label>
+          <select id="sin-miequipo">
+            <option value="">Selecciona</option>
+            <option>DBA</option>
+            <option>Gestión de datos</option>
+            <option>Gobierno de datos</option>
+            <option>IA</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Par que evalúas</label>
+          <select id="sin-par">
+            <option value="">Selecciona</option>
+            <option>DBA ↔ Gestión de datos</option>
+            <option>DBA ↔ Gobierno de datos</option>
+            <option>DBA ↔ IA</option>
+            <option>Gestión de datos ↔ Gobierno de datos</option>
+            <option>Gestión de datos ↔ IA</option>
+            <option>Gobierno de datos ↔ IA</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Puntaje de sinergia: <span id="sin-val-label" style="font-weight:700;color:var(--accent)">5</span> / 10</label>
+        <input type="range" id="sin-slider" min="1" max="10" value="5"
+          oninput="document.getElementById('sin-val-label').textContent=this.value" style="width:100%">
+      </div>
+      <div class="form-group">
+        <label>Ejemplo concreto de lo que pasó (opcional)</label>
+        <textarea id="sin-ejemplo" placeholder="Ej: Cuando ocurrió X, los dos equipos no estaban alineados porque..."></textarea>
+      </div>
+      <button class="btn btn-primary" onclick="enviarSinergia()">Guardar evaluación</button>
+      <div class="status-msg" id="st-sin"></div>
+    </div>
+
+    <div class="card">
+      <h3>Mapa de calor de sinergia</h3>
+      <div id="sin-heatmap"><div class="empty-board">Las evaluaciones aparecerán aquí</div></div>
+    </div>
+
+    <div class="card">
+      <h3>🔥 Tensiones detectadas (diferencia &gt; 3 puntos)</h3>
+      <div id="sin-tensiones"><div class="empty-board">Sin tensiones detectadas aún</div></div>
+    </div>
+  </div>
+
+  <!-- ======================================================
+       PÁGINA 7: COMPROMISOS PI2
+  ====================================================== -->
+  <div class="page" id="page-7">
+    <div class="page-header">
+      <h2>✅ Compromisos para el PI 2</h2>
+      <p>Solo se registra si tiene dueño voluntario y métrica. Máximo 8 compromisos. Sin dueño = no existe.</p>
+      <div class="timer-bar">
+        ⏱️ Tiempo sugerido:
+        <span class="timer-display" id="timer-7">60:00</span>
+        <button class="timer-btn" onclick="startTimer(7,3600)">Iniciar</button>
+        <button class="timer-btn" onclick="stopTimer()">Pausar</button>
+      </div>
+    </div>
+
+    <div class="facilitation">
+      <strong>🎙️ Instrucción</strong>
+      Por cada prioridad votada (top 5 de la etapa 3): pregunta secuencialmente:
+      <em>"¿Qué acción concreta hacemos?"</em> → <em>"¿Quién se compromete?"</em> → <em>"¿Para cuándo?"</em> → <em>"¿Cómo sabremos que se cumplió?"</em><br>
+      Si nadie se ofrece como dueño, el compromiso no se registra. Eso también es información valiosa.
+    </div>
+
+    <div class="card">
+      <h3>Nuevo compromiso</h3>
+      <div class="form-group">
+        <label>¿Qué vamos a hacer?</label>
+        <textarea id="co-que" placeholder="Descripción concreta y específica del compromiso..."></textarea>
+      </div>
+      <div class="form-row cols3">
+        <div class="form-group">
+          <label>¿Quién? (dueño)</label>
+          <input type="text" id="co-quien" placeholder="Nombre + rol">
+        </div>
+        <div class="form-group">
+          <label>¿Cuándo?</label>
+          <input type="text" id="co-cuando" placeholder="Ej: Iter. 1 PI 2">
+        </div>
+        <div class="form-group">
+          <label>Habilita reto</label>
+          <select id="co-reto">
+            <option value="J2C">J2C</option>
+            <option value="Bodega de datos">Bodega de datos</option>
+            <option value="Adopción IA">Adopción IA</option>
+            <option value="Múltiples">Múltiples</option>
+            <option value="Sinergia">Sinergia</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Métrica de éxito (¿cómo sabremos que se cumplió?)</label>
+        <input type="text" id="co-metrica" placeholder="Ej: Índice de sinergia DBA↔Gestión sube de 3 a 7 al final del PI 2">
+      </div>
+      <button class="btn btn-success" onclick="enviarCompromiso()">Registrar compromiso</button>
+      <div class="status-msg" id="st-co"></div>
+    </div>
+
+    <div class="card">
+      <h3>Compromisos registrados <span id="co-count" style="font-size:13px;color:var(--gray);font-weight:400">(0/8)</span></h3>
+      <div id="co-list"><div class="empty-board">Los compromisos del equipo aparecerán aquí</div></div>
+    </div>
+  </div>
+
+  <!-- ======================================================
+       PÁGINA 8: RETOS PI2
+  ====================================================== -->
+  <div class="page" id="page-8">
+    <div class="page-header">
+      <h2>🚀 Plan de abordaje — Retos PI 2</h2>
+      <p>Mapeo de capacidades requeridas vs estado actual. Donde hay brecha alta, hay riesgo para el PI.</p>
+      <div class="timer-bar">
+        ⏱️ Tiempo sugerido:
+        <span class="timer-display" id="timer-8">45:00</span>
+        <button class="timer-btn" onclick="startTimer(8,2700)">Iniciar</button>
+        <button class="timer-btn" onclick="stopTimer()">Pausar</button>
+      </div>
+    </div>
+
+    <div class="facilitation">
+      <strong>🎙️ Instrucción</strong>
+      Revisa cada capacidad. El equipo asigna un estado actual (1-5). La brecha (5 - estado actual) se calcula sola.
+      Al final identifica las capacidades con brecha ≥ 3 — esas son las más críticas para el PI.
+      Pregunta de cierre: <em>"¿Qué tendríamos que ver al final del PI 2 para saber que vamos bien en este reto?"</em>
+    </div>
+
+    <div id="retos-grid"></div>
+
+    <div class="card">
+      <h3>Capacidades críticas (brecha ≥ 3)</h3>
+      <div id="retos-criticos"><div class="empty-board">Evalúa las capacidades para ver las críticas</div></div>
+    </div>
+  </div>
+
+  <!-- ======================================================
+       PÁGINA 9: ENCUESTA
+  ====================================================== -->
+  <div class="page" id="page-9">
+    <div class="page-header">
+      <h2>📝 Encuesta de salida</h2>
+      <p>Anónima · 5 preguntas · 2 minutos. Sirve para medir esta sesión y mejorar la próxima retro.</p>
+      <div class="timer-bar">
+        ⏱️ Tiempo sugerido:
+        <span class="timer-display" id="timer-9">15:00</span>
+        <button class="timer-btn" onclick="startTimer(9,900)">Iniciar</button>
+        <button class="timer-btn" onclick="stopTimer()">Pausar</button>
+      </div>
+    </div>
+
+    <div class="facilitation">
+      <strong>🎙️ Instrucción</strong>
+      Todos responden al mismo tiempo en sus dispositivos. Es anónima — nadie verá quién respondió qué.
+      Los resultados aparecen en el dashboard inmediatamente.
+    </div>
+
+    <div class="card">
+      <h3>Tu evaluación de la sesión</h3>
+
+      <div class="form-group" style="margin-bottom:20px">
+        <label style="font-size:13px;margin-bottom:8px;display:block">1. ¿Qué tan útil fue esta retrospectiva? <span style="color:var(--gray)">(1=nada · 5=muy útil)</span></label>
+        <div class="star-rating" id="stars-util" data-val="0">
+          <span class="star" onclick="setStar('stars-util',1)">☆</span>
+          <span class="star" onclick="setStar('stars-util',2)">☆</span>
+          <span class="star" onclick="setStar('stars-util',3)">☆</span>
+          <span class="star" onclick="setStar('stars-util',4)">☆</span>
+          <span class="star" onclick="setStar('stars-util',5)">☆</span>
+        </div>
+      </div>
+
+      <div class="form-group" style="margin-bottom:20px">
+        <label style="font-size:13px;margin-bottom:8px;display:block">2. ¿Saliste con claridad sobre los compromisos del PI 2? <span style="color:var(--gray)">(1=ninguna · 5=total)</span></label>
+        <div class="star-rating" id="stars-claridad" data-val="0">
+          <span class="star" onclick="setStar('stars-claridad',1)">☆</span>
+          <span class="star" onclick="setStar('stars-claridad',2)">☆</span>
+          <span class="star" onclick="setStar('stars-claridad',3)">☆</span>
+          <span class="star" onclick="setStar('stars-claridad',4)">☆</span>
+          <span class="star" onclick="setStar('stars-claridad',5)">☆</span>
+        </div>
+      </div>
+
+      <div class="form-group" style="margin-bottom:20px">
+        <label style="font-size:13px;margin-bottom:8px;display:block">3. ¿Sentiste que tu voz fue escuchada? <span style="color:var(--gray)">(1=nada · 5=totalmente)</span></label>
+        <div class="star-rating" id="stars-voz" data-val="0">
+          <span class="star" onclick="setStar('stars-voz',1)">☆</span>
+          <span class="star" onclick="setStar('stars-voz',2)">☆</span>
+          <span class="star" onclick="setStar('stars-voz',3)">☆</span>
+          <span class="star" onclick="setStar('stars-voz',4)">☆</span>
+          <span class="star" onclick="setStar('stars-voz',5)">☆</span>
+        </div>
+      </div>
+
+      <div class="form-group" style="margin-bottom:20px">
+        <label>4. ¿Qué cambiarías para la próxima retro?</label>
+        <textarea id="enc-cambio" placeholder="Escribe libremente..."></textarea>
+      </div>
+
+      <div class="form-group" style="margin-bottom:20px">
+        <label>5. Una palabra para describir cómo te vas</label>
+        <input type="text" id="enc-palabra" placeholder="Una sola palabra">
+      </div>
+
+      <button class="btn btn-primary" onclick="enviarEncuesta()">Enviar evaluación</button>
+      <div class="status-msg" id="st-enc"></div>
+    </div>
+
+    <div class="card">
+      <h3>Resultados en vivo</h3>
+      <div id="enc-resultados"><div class="empty-board">Los resultados aparecerán aquí</div></div>
+    </div>
+  </div>
+
+  <!-- ======================================================
+       PÁGINA 10: DASHBOARD
+  ====================================================== -->
+  <div class="page" id="page-10">
+    <div class="page-header">
+      <h2>📊 Dashboard — Cierre de la retrospectiva</h2>
+      <p>Resumen visual de toda la sesión. Se actualiza con los datos de las etapas anteriores.</p>
+    </div>
+
+    <div class="facilitation">
+      <strong>🎙️ Instrucción de cierre</strong>
+      Cada dueño lee su compromiso en voz alta. El equipo confirma. Foto del dashboard.
+      Lectura de la encuesta de salida. Agradecimiento explícito al equipo.
+    </div>
+
+    <!-- KPIs -->
+    <div class="kpi-grid" id="dash-kpis">
+      <div class="kpi-box"><div class="kpi-num" id="d-participantes">0</div><div class="kpi-label">Participantes</div></div>
+      <div class="kpi-box"><div class="kpi-num" id="d-tarjetas">0</div><div class="kpi-label">Tarjetas</div></div>
+      <div class="kpi-box"><div class="kpi-num" id="d-compromisos">0</div><div class="kpi-label">Compromisos PI 2</div></div>
+      <div class="kpi-box"><div class="kpi-num" id="d-pct">0%</div><div class="kpi-label">Cumplimiento PI 1</div></div>
+    </div>
+
+    <!-- Sinergia Heatmap -->
+    <div class="card">
+      <h3>🌡️ Mapa de calor de sinergia</h3>
+      <div id="dash-heatmap"><div class="empty-board">Completa la etapa de sinergia</div></div>
+    </div>
+
+    <!-- Estado equipo -->
+    <div class="card">
+      <h3>💚 Estado emocional del equipo</h3>
+      <div id="dash-mood"><div class="empty-board">Completa el check-in</div></div>
+    </div>
+
+    <!-- Compromisos -->
+    <div class="card">
+      <h3>✅ Compromisos comprometidos para PI 2</h3>
+      <div id="dash-compromisos"></div>
+    </div>
+
+    <!-- Encuesta -->
+    <div class="card">
+      <h3>📝 Resultados encuesta de salida</h3>
+      <div id="dash-encuesta"><div class="empty-board">Completa la encuesta de salida</div></div>
+    </div>
+
+    <!-- Export -->
+    <div class="card">
+      <h3>💾 Exportar y compartir</h3>
+      <div style="display:flex;gap:10px;flex-wrap:wrap">
+        <button class="btn btn-primary" onclick="exportarJSON()">📥 Descargar respaldo JSON</button>
+        <button class="btn btn-outline" onclick="imprimirDashboard()">🖨️ Imprimir / PDF</button>
+      </div>
+      <p style="font-size:11px;color:var(--gray);margin-top:10px">
+        Los datos están guardados en SharePoint en tiempo real. El JSON es un respaldo adicional.
+      </p>
+    </div>
+  </div>
+
+</div><!-- /main -->
+
+<!-- NAV FOOTER -->
+<div class="nav-footer">
+  <button class="btn btn-outline" id="btn-prev" onclick="navPage(-1)" disabled>← Anterior</button>
+  <span class="nav-step-info" id="nav-step-info">Etapa 1 de 11</span>
+  <button class="btn btn-primary" id="btn-next" onclick="navPage(1)">Siguiente →</button>
+</div>
+
+
+<script>
+// ==================== CONFIG SHAREPOINT ====================
+const SP_SITE = "https://gyf.sharepoint.com/sites/AutomatizacionRPA/Pruebas_IA";
+const LISTAS = {
+  checkin:      "Retro_Checkin",
+  tarjetas:     "Retro_Tarjetas",
+  sinergia:     "Retro_Sinergia",
+  compromisos:  "Retro_Compromisos",
+  logros:       "Retro_Checkin",    // reutiliza / fallback local
+  items:        "Retro_Tarjetas",   // fallback local
+  ishikawa:     "Retro_Tarjetas",   // fallback local
+  encuesta:     "Retro_Checkin"     // fallback local
+};
+
+// ==================== ESTADO LOCAL ====================
+const STATE = {
+  checkins: [], tarjetas: [], logros: [], items: [],
+  ishikawa: [], sinergia: [], compromisos: [], encuesta: [],
+  retos: initRetos(), misVotos: [], moodSel: null, timerInterval: null
+};
+let currentPage = 0;
+let isAuth = false;
+let spDigest = null;
+
+// ==================== STEPS ====================
+const STEPS = [
+  { label: "Portada", icon: "🏠", time: 0 },
+  { label: "Check-in", icon: "📋", time: 20 },
+  { label: "Logros", icon: "🏆", time: 45 },
+  { label: "Bien / Mal", icon: "🎯", time: 60 },
+  { label: "Items PI 1", icon: "📦", time: 45 },
+  { label: "Ishikawa", icon: "🦴", time: 45 },
+  { label: "Sinergia", icon: "🤝", time: 45 },
+  { label: "Compromisos", icon: "✅", time: 60 },
+  { label: "Retos PI 2", icon: "🚀", time: 45 },
+  { label: "Encuesta", icon: "📝", time: 15 },
+  { label: "Dashboard", icon: "📊", time: 30 }
+];
+
+// ==================== RETOS ====================
+function initRetos() {
+  return [
+    { reto:"J2C", cap:"Cloud-native DB (RDS/Aurora)", eq:"DBA", estado:0 },
+    { reto:"J2C", cap:"Infrastructure as Code (Terraform)", eq:"DBA", estado:0 },
+    { reto:"J2C", cap:"Migración con downtime mínimo", eq:"DBA + Gestión", estado:0 },
+    { reto:"J2C", cap:"FinOps / estrategia de costos cloud", eq:"DBA + Gobierno", estado:0 },
+    { reto:"Bodega", cap:"Modelado dimensional (star/snowflake)", eq:"Gestión", estado:0 },
+    { reto:"Bodega", cap:"Pipelines ELT productivos", eq:"Gestión", estado:0 },
+    { reto:"Bodega", cap:"Calidad de datos automatizada", eq:"Gestión + Gobierno", estado:0 },
+    { reto:"Bodega", cap:"Catálogo unificado y lineage", eq:"Gobierno", estado:0 },
+    { reto:"IA", cap:"MLOps end-to-end", eq:"IA", estado:0 },
+    { reto:"IA", cap:"Feature store productivo", eq:"IA + Gestión", estado:0 },
+    { reto:"IA", cap:"Gobierno de modelos (responsable, sesgo)", eq:"Gobierno + IA", estado:0 },
+    { reto:"IA", cap:"Ambientes reproducibles para data science", eq:"DBA + IA", estado:0 },
+  ];
+}
+
+// ==================== INIT ====================
+window.addEventListener('load', async () => {
+  buildStepper();
+  buildPortadaIndex();
+  buildRetosGrid();
+  updateNav();
+  await verificarAuth();
+  setInterval(sincronizarUI, 6000);
+});
+
+// ==================== STEPPER ====================
+function buildStepper() {
+  const el = document.getElementById('stepper');
+  el.innerHTML = STEPS.map((s,i) => `
+    <div class="step ${i===0?'active':''}" id="step-${i}" onclick="goToPage(${i})">
+      <div class="step-num">${i+1}</div>
+      ${s.icon} ${s.label}
+    </div>
+  `).join('');
+}
+
+function updateStepper() {
+  STEPS.forEach((_,i) => {
+    const el = document.getElementById(`step-${i}`);
+    el.className = 'step' + (i === currentPage ? ' active' : i < currentPage ? ' done' : '');
+  });
+}
+
+// ==================== NAVIGATION ====================
+function navPage(dir) {
+  goToPage(currentPage + dir);
+}
+
+function goToPage(n) {
+  if (n < 0 || n >= STEPS.length) return;
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById(`page-${n}`).classList.add('active');
+  currentPage = n;
+  updateStepper();
+  updateNav();
+  stopTimer();
+  if (n === 10) updateDashboard();
+  window.scrollTo(0,0);
+}
+
+function updateNav() {
+  document.getElementById('btn-prev').disabled = currentPage === 0;
+  document.getElementById('btn-next').textContent = currentPage === STEPS.length-1 ? '✓ Finalizar' : 'Siguiente →';
+  document.getElementById('nav-step-info').textContent = `Etapa ${currentPage+1} de ${STEPS.length}`;
+}
+
+// ==================== PORTADA ====================
+function buildPortadaIndex() {
+  const el = document.getElementById('portada-index');
+  el.innerHTML = STEPS.slice(1).map((s,i) => `
+    <div class="index-item" onclick="goToPage(${i+1})">
+      <div class="index-num">${i+2}</div>
+      <div class="index-info">
+        <h4>${s.icon} ${s.label}</h4>
+        <p>${s.time} min</p>
+      </div>
+    </div>
+  `).join('');
+}
+
+// ==================== TIMER ====================
+function startTimer(page, secs) {
+  stopTimer();
+  let remaining = secs;
+  const el = document.getElementById(`timer-${page}`);
+  STATE.timerInterval = setInterval(() => {
+    if (remaining <= 0) { clearInterval(STATE.timerInterval); return; }
+    remaining--;
+    const m = Math.floor(remaining/60);
+    const s = remaining % 60;
+    el.textContent = `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+    if (remaining <= 60) el.style.color = 'var(--danger)';
+  }, 1000);
+}
+function stopTimer() {
+  if (STATE.timerInterval) clearInterval(STATE.timerInterval);
+}
+
+// ==================== AUTH SHAREPOINT ====================
+async function verificarAuth() {
+  try {
+    const r = await fetch(`${SP_SITE}/_api/web/currentuser`, { headers: { Accept: 'application/json' } });
+    if (r.ok) {
+      const u = await r.json();
+      isAuth = true;
+      spDigest = await getDigest();
+      setAuthPill(true, `✓ ${u.d.Title}`);
+    } else throw new Error('not auth');
+  } catch {
+    isAuth = false;
+    setAuthPill(false, '⚠️ Sin conexión SharePoint — modo local');
+  }
+}
+
+function setAuthPill(ok, label) {
+  const p = document.getElementById('auth-pill');
+  const l = document.getElementById('auth-label');
+  p.className = `auth-pill ${ok?'ok':'err'}`;
+  l.textContent = label;
+}
+
+async function getDigest() {
+  try {
+    const r = await fetch(`${SP_SITE}/_api/contextinfo`, { method:'POST', headers:{ Accept:'application/json' } });
+    if (r.ok) { const d = await r.json(); return d.d.GetContextWebInformation.FormDigestValue; }
+  } catch {}
+  return '';
+}
+
+async function spPost(lista, datos) {
+  if (!isAuth) { guardarLocal(lista, datos); return true; }
+  try {
+    const r = await fetch(`${SP_SITE}/_api/web/lists/getbytitle('${lista}')/items`, {
+      method: 'POST',
+      headers: { Accept:'application/json', 'Content-Type':'application/json', 'X-RequestDigest': spDigest || '' },
+      body: JSON.stringify({ '__metadata': { type:'SP.Data.ListItem' }, ...datos })
+    });
+    if (r.ok) return true;
+    guardarLocal(lista, datos); return false;
+  } catch { guardarLocal(lista, datos); return false; }
+}
+
+async function spGet(lista) {
+  if (!isAuth) return getLocal(lista);
+  try {
+    const r = await fetch(`${SP_SITE}/_api/web/lists/getbytitle('${lista}')/items?$top=1000`, { headers:{ Accept:'application/json' } });
+    if (r.ok) { const d = await r.json(); return d.d.results || []; }
+  } catch {}
+  return getLocal(lista);
+}
+
+// ==================== LOCAL FALLBACK ====================
+function guardarLocal(key, data) {
+  const arr = getLocal(key); arr.push(data); localStorage.setItem(key, JSON.stringify(arr));
+}
+function getLocal(key) {
+  try { return JSON.parse(localStorage.getItem(key) || '[]'); } catch { return []; }
+}
+
+// ==================== STATUS MESSAGES ====================
+function showStatus(id, msg, tipo) {
+  const el = document.getElementById(id);
+  el.textContent = msg; el.className = `status-msg show ${tipo}`;
+  setTimeout(() => { el.className = 'status-msg'; }, 3500);
+}
+
+// ==================== MOOD ====================
+let selectedMood = null;
+function selMood(val, el) {
+  document.querySelectorAll('.mood-card').forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+  selectedMood = val;
+}
+
+// ==================== STARS ====================
+function setStar(groupId, val) {
+  const el = document.getElementById(groupId);
+  el.dataset.val = val;
+  const stars = el.querySelectorAll('.star');
+  stars.forEach((s,i) => { s.textContent = i < val ? '⭐' : '☆'; s.classList.toggle('active', i < val); });
+}
+
+// ==================== CHECK-IN ====================
+async function enviarCheckin() {
+  const nombre = document.getElementById('ci-nombre').value.trim();
+  const equipo = document.getElementById('ci-equipo').value;
+  if (!nombre || !equipo || !selectedMood) { showStatus('st-checkin','Completa todos los campos y selecciona tu estado','err'); return; }
+  const data = { Title: nombre, Nombre: nombre, Equipo: equipo, Estado: selectedMood };
+  await spPost(LISTAS.checkin, data);
+  STATE.checkins.push(data);
+  showStatus('st-checkin','✓ Check-in registrado','ok');
+  document.getElementById('ci-nombre').value = '';
+  document.getElementById('ci-equipo').value = '';
+  document.querySelectorAll('.mood-card').forEach(c => c.classList.remove('selected'));
+  selectedMood = null;
+  renderCheckin();
+}
+
+function renderCheckin() {
+  const list = STATE.checkins;
+  const board = document.getElementById('ci-board');
+  if (!list.length) { board.innerHTML = '<div class="empty-board">Las respuestas aparecerán aquí</div>'; return; }
+  const moodColor = { Energizado:'green', Bien:'green', Cansado:'gray', Frustrado:'mal' };
+  const moodEmoji = { Energizado:'⚡', Bien:'😊', Cansado:'😴', Frustrado:'😤' };
+  board.innerHTML = list.map(c => `
+    <div class="sticky ${moodColor[c.Estado]||'gray'}">
+      <strong>${c.Nombre||c.Title}</strong> (${c.Equipo}) ${moodEmoji[c.Estado]||''} ${c.Estado}
+    </div>`).join('');
+  const pos = list.filter(c => ['Energizado','Bien'].includes(c.Estado)).length;
+  const can = list.filter(c => c.Estado==='Cansado').length;
+  const fru = list.filter(c => c.Estado==='Frustrado').length;
+  document.getElementById('ci-total').textContent = list.length;
+  document.getElementById('ci-pos').textContent = pos;
+  document.getElementById('ci-neg').textContent = can;
+  document.getElementById('ci-frus').textContent = fru;
+}
+
+// ==================== LOGROS ====================
+async function enviarLogro() {
+  const equipo = document.getElementById('log-equipo').value;
+  const tipo = document.getElementById('log-tipo').value;
+  const texto = document.getElementById('log-texto').value.trim();
+  const para = document.getElementById('log-para').value;
+  if (!equipo || !texto) { showStatus('st-logro','Completa los campos requeridos','err'); return; }
+  if (tipo === 'cruzado' && !para) { showStatus('st-logro','Selecciona el equipo al que reconoces','err'); return; }
+  const data = { Title: texto.substring(0,100), Equipo: equipo, Tipo: tipo, Texto: texto, Para: para||'' };
+  STATE.logros.push(data);
+  showStatus('st-logro','✓ Logro registrado','ok');
+  document.getElementById('log-texto').value = '';
+  renderLogros();
+}
+
+function renderLogros() {
+  const propios = STATE.logros.filter(l => l.Tipo==='propio');
+  const cruzados = STATE.logros.filter(l => l.Tipo==='cruzado');
+  const equipoColor = { 'DBA':'bien', 'Gestión de datos':'green', 'Gobierno de datos':'purple', 'IA':'sorpresa' };
+  const renderGroup = (list, emptyMsg) => !list.length ? `<div class="empty-board">${emptyMsg}</div>` :
+    list.map(l => `<div class="sticky ${equipoColor[l.Equipo]||'gray'}">${l.Equipo}: ${l.Texto}${l.Para?` <em>→ para ${l.Para}</em>`:''}</div>`).join('');
+  document.getElementById('logros-propios-board').innerHTML = renderGroup(propios, 'Sin logros aún');
+  document.getElementById('logros-cruzados-board').innerHTML = renderGroup(cruzados, 'Sin reconocimientos aún');
+}
+
+// ==================== TARJETAS ====================
+async function enviarTarjeta() {
+  const cat = document.getElementById('bm-cat').value;
+  const texto = document.getElementById('bm-texto').value.trim();
+  const equipo = document.getElementById('bm-equipo').value;
+  if (!cat || !texto) { showStatus('st-tarjeta','Selecciona categoría y escribe la observación','err'); return; }
+  const data = { id: Date.now(), Title: texto.substring(0,100), Categoria: cat, Texto: texto, Equipo: equipo, Votos: 0 };
+  await spPost(LISTAS.tarjetas, data);
+  STATE.tarjetas.push(data);
+  showStatus('st-tarjeta','✓ Tarjeta agregada','ok');
+  document.getElementById('bm-texto').value = '';
+  document.getElementById('bm-cat').value = '';
+  renderTarjetas();
+}
+
+function renderTarjetas() {
+  ['bien','mal','sorpresa','pregunta'].forEach(cat => {
+    const board = document.getElementById(`board-${cat}`);
+    const items = STATE.tarjetas.filter(t => t.Categoria===cat);
+    if (!items.length) { board.innerHTML = '<div class="empty-board">Sin tarjetas aún</div>'; return; }
+    board.innerHTML = items.map(t => `
+      <div class="sticky ${cat}">
+        <div style="flex:1">${t.Texto} <span style="font-size:10px;opacity:.6">[${t.Equipo}]</span></div>
+        <span class="sticky-votes" onclick="votarTarjeta(${t.id})">+${t.Votos}</span>
+        <span class="sticky-del" onclick="eliminarTarjeta(${t.id})">✕</span>
+      </div>`).join('');
+  });
+  renderTop5();
+}
+
+function votarTarjeta(id) {
+  if (STATE.misVotos.includes(id)) { showStatus('st-tarjeta','Ya votaste por esta tarjeta','warn'); return; }
+  const t = STATE.tarjetas.find(t => t.id===id);
+  if (!t) return;
+  t.Votos++;
+  STATE.misVotos.push(id);
+  renderTarjetas();
+}
+
+function eliminarTarjeta(id) {
+  STATE.tarjetas = STATE.tarjetas.filter(t => t.id !== id);
+  renderTarjetas();
+}
+
+function renderTop5() {
+  const top = [...STATE.tarjetas].sort((a,b) => b.Votos-a.Votos).slice(0,5).filter(t => t.Votos>0);
+  const el = document.getElementById('top5-board');
+  if (!top.length) { el.innerHTML = '<div class="empty-board">Vota las tarjetas para ver el top 5</div>'; return; }
+  const max = top[0].Votos || 1;
+  const catColor = { bien: 'var(--success)', mal:'var(--danger)', sorpresa:'var(--warn)', pregunta:'var(--accent)' };
+  el.innerHTML = top.map((t,i) => `
+    <div class="bar-row">
+      <span class="bar-label">${i+1}. ${t.Texto.substring(0,30)}${t.Texto.length>30?'...':''}</span>
+      <div class="bar-track"><div class="bar-fill" style="width:${(t.Votos/max)*100}%;background:${catColor[t.Categoria]||'var(--accent)'}"></div></div>
+      <span class="bar-val">${t.Votos}</span>
+    </div>`).join('');
+}
+
+// ==================== ITEMS PI1 ====================
+async function enviarItem() {
+  const nombre = document.getElementById('it-nombre').value.trim();
+  const equipo = document.getElementById('it-equipo').value;
+  const estado = document.getElementById('it-estado').value;
+  const avance = parseInt(document.getElementById('it-avance').value)||0;
+  const causa = document.getElementById('it-causa').value.trim();
+  const impacto = document.getElementById('it-impacto').value.trim();
+  if (!nombre || !equipo || !estado) { showStatus('st-item','Completa los campos requeridos','err'); return; }
+  const data = { id: Date.now(), nombre, equipo, estado, avance, causa, impacto };
+  STATE.items.push(data);
+  showStatus('st-item','✓ Item registrado','ok');
+  document.getElementById('it-nombre').value = '';
+  document.getElementById('it-causa').value = '';
+  document.getElementById('it-impacto').value = '';
+  document.getElementById('it-avance').value = '';
+  renderItems();
+}
+
+function renderItems() {
+  const cumplidos = STATE.items.filter(i => i.estado==='cumplido').length;
+  const parciales = STATE.items.filter(i => i.estado==='parcial').length;
+  const no = STATE.items.filter(i => i.estado==='no-cumplido').length;
+  const total = STATE.items.length;
+  document.getElementById('it-cumplidos').textContent = cumplidos;
+  document.getElementById('it-parciales').textContent = parciales;
+  document.getElementById('it-nocumplidos').textContent = no;
+  const pct = total ? Math.round((cumplidos/total)*100) : 0;
+  document.getElementById('it-bar').style.width = pct+'%';
+  document.getElementById('it-pct').textContent = pct+'%';
+
+  const badgeMap = { cumplido:'badge-ok', parcial:'badge-warn', 'no-cumplido':'badge-err' };
+  const labelMap = { cumplido:'✅ Cumplido', parcial:'⚠️ Parcial', 'no-cumplido':'❌ No cumplido' };
+  const el = document.getElementById('items-list');
+  if (!STATE.items.length) { el.innerHTML='<div class="empty-board">Registra los items del PI 1</div>'; return; }
+  el.innerHTML = `<table class="items-table">
+    <thead><tr><th>Item</th><th>Equipo</th><th>Estado</th><th>Avance</th><th>Causa raíz</th></tr></thead>
+    <tbody>${STATE.items.map(it => `
+      <tr>
+        <td>${it.nombre}</td>
+        <td>${it.equipo}</td>
+        <td><span class="badge ${badgeMap[it.estado]}">${labelMap[it.estado]}</span></td>
+        <td>${it.avance}%</td>
+        <td style="font-size:11px;color:var(--gray)">${it.causa||'—'}</td>
+      </tr>`).join('')}
+    </tbody>
+  </table>`;
+}
+
+// ==================== ISHIKAWA ====================
+async function enviarIshikawa() {
+  const rama = document.getElementById('ish-rama').value;
+  const causa = document.getElementById('ish-causa').value.trim();
+  const sev = parseInt(document.getElementById('ish-severidad').value);
+  if (!rama || !causa) { showStatus('st-ish','Selecciona la rama y describe la causa','err'); return; }
+  const data = { id: Date.now(), rama, causa, severidad: sev };
+  STATE.ishikawa.push(data);
+  showStatus('st-ish','✓ Causa agregada','ok');
+  document.getElementById('ish-causa').value = '';
+  renderIshikawa();
+}
+
+function renderIshikawa() {
+  const ramas = ['personas','procesos','herramientas','comunicacion','liderazgo'];
+  const colMap = { personas:'mal', procesos:'bien', herramientas:'sorpresa', comunicacion:'green', liderazgo:'purple' };
+  ramas.forEach(r => {
+    const items = STATE.ishikawa.filter(i => i.rama===r);
+    const el = document.getElementById(`ish-${r}`);
+    if (!items.length) { el.innerHTML='<div class="empty-board">Sin causas aún</div>'; return; }
+    el.innerHTML = items.map(i => `
+      <div class="sticky ${colMap[r]}" style="margin:4px 0">
+        ${i.causa} <span class="badge badge-${i.severidad>=4?'err':i.severidad>=3?'warn':'ok'}">${i.severidad}</span>
+        <span class="sticky-del" onclick="eliminarIshikawa(${i.id})">✕</span>
+      </div>`).join('');
+  });
+  renderIshikawaRanking();
+}
+
+function eliminarIshikawa(id) {
+  STATE.ishikawa = STATE.ishikawa.filter(i => i.id!==id);
+  renderIshikawa();
+}
+
+function renderIshikawaRanking() {
+  const conteo = {};
+  STATE.ishikawa.forEach(i => {
+    conteo[i.rama] = (conteo[i.rama]||0) + i.severidad;
+  });
+  const sorted = Object.entries(conteo).sort((a,b)=>b[1]-a[1]);
+  const el = document.getElementById('ish-ranking');
+  if (!sorted.length) { el.innerHTML='<div class="empty-board">Agrega causas para ver el ranking</div>'; return; }
+  const max = sorted[0][1]||1;
+  const nombres = { personas:'👥 Personas', procesos:'⚙️ Procesos', herramientas:'🔧 Herramientas', comunicacion:'💬 Comunicación', liderazgo:'🎯 Liderazgo' };
+  el.innerHTML = sorted.map(([r,v]) => `
+    <div class="bar-row">
+      <span class="bar-label">${nombres[r]||r}</span>
+      <div class="bar-track"><div class="bar-fill" style="width:${(v/max)*100}%;background:var(--danger)"></div></div>
+      <span class="bar-val">${v}</span>
+    </div>`).join('');
+}
+
+// ==================== SINERGIA ====================
+async function enviarSinergia() {
+  const miequipo = document.getElementById('sin-miequipo').value;
+  const par = document.getElementById('sin-par').value;
+  const puntaje = parseInt(document.getElementById('sin-slider').value);
+  const ejemplo = document.getElementById('sin-ejemplo').value.trim();
+  if (!miequipo || !par) { showStatus('st-sin','Selecciona tu equipo y el par a evaluar','err'); return; }
+  const data = { id: Date.now(), Title: par, Par: par, MiEquipo: miequipo, Puntaje: puntaje, Ejemplo: ejemplo };
+  await spPost(LISTAS.sinergia, data);
+  STATE.sinergia.push(data);
+  showStatus('st-sin','✓ Evaluación guardada','ok');
+  document.getElementById('sin-ejemplo').value = '';
+  document.getElementById('sin-slider').value = 5;
+  document.getElementById('sin-val-label').textContent = 5;
+  renderSinergia();
+}
+
+function renderSinergia() {
+  const PARES = [
+    'DBA ↔ Gestión de datos',
+    'DBA ↔ Gobierno de datos',
+    'DBA ↔ IA',
+    'Gestión de datos ↔ Gobierno de datos',
+    'Gestión de datos ↔ IA',
+    'Gobierno de datos ↔ IA',
+  ];
+  const heatmap = document.getElementById('sin-heatmap');
+  const tensiones = document.getElementById('sin-tensiones');
+
+  const promedios = {};
+  const grupos = {};
+  STATE.sinergia.forEach(s => {
+    if (!grupos[s.Par]) grupos[s.Par] = [];
+    grupos[s.Par].push(s.Puntaje);
+  });
+  Object.keys(grupos).forEach(par => {
+    promedios[par] = grupos[par].reduce((a,b)=>a+b,0) / grupos[par].length;
+  });
+
+  const getColor = v => v >= 7 ? '#E2EFDA' : v >= 5 ? '#FFF2CC' : '#FCE4D6';
+  const getTextColor = v => v >= 7 ? '#27500A' : v >= 5 ? '#5c3d00' : '#7D1C1C';
+
+  const hayDatos = Object.keys(promedios).length > 0;
+  if (!hayDatos) { heatmap.innerHTML = '<div class="empty-board">Agrega evaluaciones para ver el mapa</div>'; }
+  else {
+    heatmap.innerHTML = PARES.map(par => {
+      const v = promedios[par];
+      if (!v) return '';
+      const count = grupos[par].length;
+      return `<div class="heatmap-cell" style="background:${getColor(v)};color:${getTextColor(v)}">
+        <span class="heatmap-label">${par} <span style="font-size:11px;opacity:.6">(${count} evaluac.)</span></span>
+        <span class="heatmap-score">${v.toFixed(1)}</span>
+      </div>`;
+    }).filter(Boolean).join('') || '<div class="empty-board">Sin datos aún</div>';
+  }
+
+  // Tensiones (diferencia > 3 entre evaluaciones del mismo par)
+  const tension_items = [];
+  Object.keys(grupos).forEach(par => {
+    const vals = grupos[par];
+    if (vals.length >= 2) {
+      const max = Math.max(...vals), min = Math.min(...vals);
+      if (max - min > 3) tension_items.push({ par, max, min, diff: max-min });
+    }
+  });
+  tensiones.innerHTML = !tension_items.length
+    ? '<div class="empty-board">✓ Sin tensiones detectadas — diferencias ≤ 3 puntos</div>'
+    : tension_items.map(t => `
+      <div class="commit-item">
+        <div class="commit-icon">🔥</div>
+        <div class="commit-body">
+          <div class="commit-title">${t.par}</div>
+          <div class="commit-meta">Diferencia de ${t.diff} puntos (${t.min} vs ${t.max}) — requiere conversación</div>
+        </div>
+        <span class="tension-badge tension-high">TENSIÓN</span>
+      </div>`).join('');
+}
+
+// ==================== COMPROMISOS ====================
+async function enviarCompromiso() {
+  const que = document.getElementById('co-que').value.trim();
+  const quien = document.getElementById('co-quien').value.trim();
+  const cuando = document.getElementById('co-cuando').value.trim();
+  const metrica = document.getElementById('co-metrica').value.trim();
+  const reto = document.getElementById('co-reto').value;
+  if (!que || !quien || !cuando || !metrica) { showStatus('st-co','Un compromiso sin dueño NO se registra. Completa todos los campos.','err'); return; }
+  if (STATE.compromisos.length >= 8) { showStatus('st-co','Máximo 8 compromisos. Prioriza.','warn'); return; }
+  const data = { id: Date.now(), Title: que.substring(0,100), Que: que, Quien: quien, Cuando: cuando, Metrica: metrica, Reto: reto, Estado: 'Por iniciar' };
+  await spPost(LISTAS.compromisos, data);
+  STATE.compromisos.push(data);
+  showStatus('st-co','✓ Compromiso registrado','ok');
+  document.getElementById('co-que').value = '';
+  document.getElementById('co-quien').value = '';
+  document.getElementById('co-cuando').value = '';
+  document.getElementById('co-metrica').value = '';
+  renderCompromisos();
+}
+
+function eliminarCompromiso(id) {
+  STATE.compromisos = STATE.compromisos.filter(c => c.id !== id);
+  renderCompromisos();
+}
+
+function renderCompromisos() {
+  const el = document.getElementById('co-list');
+  const count = document.getElementById('co-count');
+  count.textContent = `(${STATE.compromisos.length}/8)`;
+  if (!STATE.compromisos.length) { el.innerHTML='<div class="empty-board">Los compromisos del equipo aparecerán aquí</div>'; return; }
+  const retoEmoji = { 'J2C':'☁️', 'Bodega de datos':'🏗️', 'Adopción IA':'🤖', 'Múltiples':'🔗', 'Sinergia':'🤝' };
+  el.innerHTML = STATE.compromisos.map(c => `
+    <div class="commit-item">
+      <div class="commit-icon">✅</div>
+      <div class="commit-body">
+        <div class="commit-title">${c.Que}</div>
+        <div class="commit-meta">👤 ${c.Quien} · 📅 ${c.Cuando} · ${retoEmoji[c.Reto]||''} ${c.Reto}<br>📊 ${c.Metrica}</div>
+      </div>
+      <span class="commit-del" onclick="eliminarCompromiso(${c.id})">✕</span>
+    </div>`).join('');
+}
+
+// ==================== RETOS PI2 ====================
+function buildRetosGrid() {
+  const retos = ['J2C','Bodega','IA'];
+  const colors = { 'J2C': 'var(--light)', 'Bodega': 'var(--light-green)', 'IA': 'var(--light-amber)' };
+  const emojis = { 'J2C': '☁️', 'Bodega': '🏗️', 'IA': '🤖' };
+  const el = document.getElementById('retos-grid');
+  el.innerHTML = retos.map(reto => {
+    const caps = STATE.retos.filter(r => r.reto===reto);
+    return `<div class="card">
+      <h3 style="background:${colors[reto]};padding:10px;border-radius:6px;margin:-20px -20px 16px -20px;font-size:16px">
+        ${emojis[reto]} Reto: ${reto==='Bodega'?'Bodega de Datos':reto==='IA'?'Adopción de IA':reto}
+      </h3>
+      <table class="items-table">
+        <thead><tr><th>Capacidad</th><th>Equipo</th><th>Estado actual (1-5)</th><th>Brecha</th></tr></thead>
+        <tbody>${caps.map((c,i) => {
+          const globalIdx = STATE.retos.indexOf(c);
+          return `<tr>
+            <td>${c.cap}</td>
+            <td><span class="badge badge-info">${c.eq}</span></td>
+            <td>
+              <input type="range" min="1" max="5" value="${c.estado||3}"
+                oninput="actualizarReto(${globalIdx},this.value)"
+                style="width:80px"> <span id="reto-val-${globalIdx}">${c.estado||3}</span>
+            </td>
+            <td>
+              <span id="reto-brecha-${globalIdx}" class="badge badge-err">
+                ${5-(c.estado||3)}
+              </span>
+            </td>
+          </tr>`;
+        }).join('')}</tbody>
+      </table>
+    </div>`;
+  }).join('');
+}
+
+function actualizarReto(idx, val) {
+  STATE.retos[idx].estado = parseInt(val);
+  document.getElementById(`reto-val-${idx}`).textContent = val;
+  const brecha = 5 - parseInt(val);
+  const el = document.getElementById(`reto-brecha-${idx}`);
+  el.textContent = brecha;
+  el.className = `badge ${brecha >= 3 ? 'badge-err' : brecha >= 2 ? 'badge-warn' : 'badge-ok'}`;
+  renderRetosCriticos();
+}
+
+function renderRetosCriticos() {
+  const criticos = STATE.retos.filter(r => (5-(r.estado||3)) >= 3);
+  const el = document.getElementById('retos-criticos');
+  if (!criticos.length) { el.innerHTML='<div class="empty-board">✓ Sin capacidades críticas (brecha &lt; 3)</div>'; return; }
+  el.innerHTML = criticos.map(c => `
+    <div class="commit-item">
+      <div class="commit-icon">⚠️</div>
+      <div class="commit-body">
+        <div class="commit-title">${c.cap}</div>
+        <div class="commit-meta">Reto: ${c.reto} · Equipo: ${c.eq} · Brecha: ${5-(c.estado||3)} puntos</div>
+      </div>
+      <span class="badge badge-err">Crítico</span>
+    </div>`).join('');
+}
+
+// ==================== ENCUESTA ====================
+async function enviarEncuesta() {
+  const util = parseInt(document.getElementById('stars-util').dataset.val)||0;
+  const claridad = parseInt(document.getElementById('stars-claridad').dataset.val)||0;
+  const voz = parseInt(document.getElementById('stars-voz').dataset.val)||0;
+  const cambio = document.getElementById('enc-cambio').value.trim();
+  const palabra = document.getElementById('enc-palabra').value.trim();
+  if (!util || !claridad || !voz) { showStatus('st-enc','Completa todas las estrellas antes de enviar','err'); return; }
+  const data = { util, claridad, voz, cambio, palabra };
+  STATE.encuesta.push(data);
+  showStatus('st-enc','✓ Evaluación enviada — gracias','ok');
+  document.getElementById('enc-cambio').value = '';
+  document.getElementById('enc-palabra').value = '';
+  ['stars-util','stars-claridad','stars-voz'].forEach(id => {
+    document.getElementById(id).dataset.val=0;
+    document.querySelectorAll(`#${id} .star`).forEach(s => { s.textContent='☆'; s.classList.remove('active'); });
+  });
+  renderEncuesta();
+}
+
+function renderEncuesta() {
+  const el = document.getElementById('enc-resultados');
+  const list = STATE.encuesta;
+  if (!list.length) { el.innerHTML='<div class="empty-board">Sin respuestas aún</div>'; return; }
+  const avg = (key) => (list.reduce((a,b) => a+(b[key]||0),0)/list.length).toFixed(1);
+  const palabras = list.map(e => e.palabra).filter(Boolean);
+  el.innerHTML = `
+    <div class="stats-row cols3">
+      <div class="stat-box green"><div class="stat-num">${avg('util')} ⭐</div><div class="stat-label">Utilidad</div></div>
+      <div class="stat-box"><div class="stat-num">${avg('claridad')} ⭐</div><div class="stat-label">Claridad PI 2</div></div>
+      <div class="stat-box"><div class="stat-num">${avg('voz')} ⭐</div><div class="stat-label">Voz escuchada</div></div>
+    </div>
+    ${palabras.length ? `<div style="margin-top:12px"><strong style="font-size:12px;color:var(--gray)">Una palabra:</strong><br>
+      <div class="sticky-board">${palabras.map(p => `<div class="sticky green">${p}</div>`).join('')}</div></div>` : ''}
+    ${list.some(e=>e.cambio) ? `<div style="margin-top:12px"><strong style="font-size:12px;color:var(--gray)">¿Qué cambiarías?</strong>
+      ${list.filter(e=>e.cambio).map(e=>`<div class="sticky gray" style="margin:4px 0">${e.cambio}</div>`).join('')}</div>` : ''}
+  `;
+}
+
+// ==================== DASHBOARD ====================
+function updateDashboard() {
+  // KPIs
+  document.getElementById('d-participantes').textContent = STATE.checkins.length;
+  document.getElementById('d-tarjetas').textContent = STATE.tarjetas.length;
+  document.getElementById('d-compromisos').textContent = STATE.compromisos.length;
+  const cumplidos = STATE.items.filter(i => i.estado==='cumplido').length;
+  const pct = STATE.items.length ? Math.round((cumplidos/STATE.items.length)*100) : 0;
+  document.getElementById('d-pct').textContent = pct+'%';
+
+  // Heatmap
+  const PARES = ['DBA ↔ Gestión de datos','DBA ↔ Gobierno de datos','DBA ↔ IA','Gestión de datos ↔ Gobierno de datos','Gestión de datos ↔ IA','Gobierno de datos ↔ IA'];
+  const grupos = {};
+  STATE.sinergia.forEach(s => {
+    if (!grupos[s.Par]) grupos[s.Par] = [];
+    grupos[s.Par].push(s.Puntaje);
+  });
+  const getColor = v => v >= 7 ? '#E2EFDA' : v >= 5 ? '#FFF2CC' : '#FCE4D6';
+  const getTextColor = v => v >= 7 ? '#27500A' : v >= 5 ? '#5c3d00' : '#7D1C1C';
+  const heatmap = document.getElementById('dash-heatmap');
+  const hayDatos = STATE.sinergia.length > 0;
+  heatmap.innerHTML = !hayDatos ? '<div class="empty-board">Completa la etapa de sinergia</div>' :
+    PARES.map(par => {
+      const vals = grupos[par];
+      if (!vals) return '';
+      const v = vals.reduce((a,b)=>a+b,0)/vals.length;
+      return `<div class="heatmap-cell" style="background:${getColor(v)};color:${getTextColor(v)}">
+        <span class="heatmap-label">${par}</span>
+        <span class="heatmap-score">${v.toFixed(1)}</span>
+      </div>`;
+    }).filter(Boolean).join('') || '<div class="empty-board">Sin datos</div>';
+
+  // Mood
+  const moodEl = document.getElementById('dash-mood');
+  if (!STATE.checkins.length) moodEl.innerHTML = '<div class="empty-board">Completa el check-in</div>';
+  else {
+    const pos = STATE.checkins.filter(c => ['Energizado','Bien'].includes(c.Estado)).length;
+    const pctPos = Math.round((pos/STATE.checkins.length)*100);
+    moodEl.innerHTML = `
+      <div class="bar-row">
+        <span class="bar-label">Positivos (⚡😊)</span>
+        <div class="bar-track"><div class="bar-fill" style="width:${pctPos}%;background:var(--success)"></div></div>
+        <span class="bar-val">${pctPos}%</span>
+      </div>
+      <div class="sticky-board">${STATE.checkins.map(c => {
+        const e = {Energizado:'⚡',Bien:'😊',Cansado:'😴',Frustrado:'😤'}[c.Estado]||'';
+        const cl = {Energizado:'green',Bien:'green',Cansado:'gray',Frustrado:'mal'}[c.Estado]||'gray';
+        return `<div class="sticky ${cl}">${e} ${c.Nombre||c.Title}</div>`;
+      }).join('')}</div>`;
+  }
+
+  // Compromisos
+  const coEl = document.getElementById('dash-compromisos');
+  if (!STATE.compromisos.length) coEl.innerHTML='<div class="empty-board">Sin compromisos registrados aún</div>';
+  else {
+    const retoEmoji = { 'J2C':'☁️', 'Bodega de datos':'🏗️', 'Adopción IA':'🤖', 'Múltiples':'🔗', 'Sinergia':'🤝' };
+    coEl.innerHTML = STATE.compromisos.map(c => `
+      <div class="commit-item">
+        <div class="commit-icon">✅</div>
+        <div class="commit-body">
+          <div class="commit-title">${c.Que}</div>
+          <div class="commit-meta">👤 ${c.Quien} · 📅 ${c.Cuando} · ${retoEmoji[c.Reto]||''} ${c.Reto}<br>📊 ${c.Metrica}</div>
+        </div>
+      </div>`).join('');
+  }
+
+  // Encuesta
+  const encEl = document.getElementById('dash-encuesta');
+  if (!STATE.encuesta.length) encEl.innerHTML='<div class="empty-board">Completa la encuesta de salida</div>';
+  else {
+    const avg = (key) => (STATE.encuesta.reduce((a,b) => a+(b[key]||0),0)/STATE.encuesta.length).toFixed(1);
+    encEl.innerHTML = `
+      <div class="stats-row cols3">
+        <div class="stat-box green"><div class="stat-num">${avg('util')} ⭐</div><div class="stat-label">Utilidad</div></div>
+        <div class="stat-box"><div class="stat-num">${avg('claridad')} ⭐</div><div class="stat-label">Claridad PI 2</div></div>
+        <div class="stat-box"><div class="stat-num">${avg('voz')} ⭐</div><div class="stat-label">Voz escuchada</div></div>
+      </div>`;
+  }
+}
+
+// ==================== SYNC PERIÓDICO ====================
+async function sincronizarUI() {
+  if (currentPage === 1) renderCheckin();
+  if (currentPage === 3) renderTarjetas();
+  if (currentPage === 6) renderSinergia();
+  if (currentPage === 7) renderCompromisos();
+  if (currentPage === 9) renderEncuesta();
+}
+
+// ==================== EXPORT ====================
+function exportarJSON() {
+  const data = {
+    exportado: new Date().toISOString(),
+    sitio: SP_SITE,
+    checkins: STATE.checkins,
+    logros: STATE.logros,
+    tarjetas: STATE.tarjetas,
+    items: STATE.items,
+    ishikawa: STATE.ishikawa,
+    sinergia: STATE.sinergia,
+    compromisos: STATE.compromisos,
+    encuesta: STATE.encuesta,
+  };
+  const blob = new Blob([JSON.stringify(data,null,2)], { type:'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = `retro-pi1-${new Date().toISOString().split('T')[0]}.json`; a.click();
+}
+
+function imprimirDashboard() {
+  window.print();
+}
+</script>
+</body>
+</html>
